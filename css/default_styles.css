@@ -1,4 +1,6 @@
 body {
+	height: auto;
+  	background-color: rgb(0, 200, 0, 0.3);
 	/* Remove browser margins */
 	margin: auto 0;
 }
