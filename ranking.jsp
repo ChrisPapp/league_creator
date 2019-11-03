@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="league.Team" %>
+<%@ page import="database.DatabaseAccess" %>
 
 <%-- begin html --%>
 <!DOCTYPE html>
@@ -14,30 +16,26 @@
 	</head>
 	<body>
 		<%@ include file="navbar.html" %>
+
+    <% 
+      DatabaseAccess db = new DatabaseAccess();
+      Team[] teams = db.getLeagueTeams(1);
+    %>
   	<div class="grid-container">
       <div class="grid">
         <div class="grid-col grid-col--fixed-left">
           <div class="grid-item grid-item--header">
             <img src="https://seeklogo.com/images/G/greece-super-league-logo-19FBE0771B-seeklogo.com.gif" alt="Super League Logo">
           </div>
-          <div class="grid-item">
-            <img src="https://seeklogo.com/images/O/Olympiacos_FC-logo-8F8F1A05DD-seeklogo.com.png" alt="Olympiacos">
-          </div>
-          <div class="grid-item">
-            <img src="https://upload.wikimedia.org/wikipedia/el/thumb/5/56/Panathinaikos_FC_logo.svg/300px-Panathinaikos_FC_logo.svg.png" alt="Panathinaikos">
-          </div>
-          <div class="grid-item">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/04/AEK_Athens_FC_logo.svg/1200px-AEK_Athens_FC_logo.svg.png" alt="Aek">
-          </div>
-          <div class="grid-item">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/9/92/PAOK_FC_logo.svg/1200px-PAOK_FC_logo.svg.png" alt="Paok">
-          </div>
-          <div class="grid-item">
-            <img src="https://seeklogo.com/images/A/atromitos-athens-logo-24668C3087-seeklogo.com.jpg" alt="Atromitos">
-          </div>
-          <div class="grid-item">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e4/Aris_Thessaloniki_F.C._logo.svg/1200px-Aris_Thessaloniki_F.C._logo.svg.png" alt="Aris">
-          </div>
+          <%
+            for (int i = 0; i < teams.length; i++) {
+          %>
+            <div class="grid-item">
+              <img src=<%= teams[i].getLogo() %> alt=<%= teams[i].getName() %>>
+            </div>
+          <%
+            }
+          %>
         </div>
 
         <div class="grid-col">
