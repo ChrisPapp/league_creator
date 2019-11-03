@@ -4,27 +4,3 @@ body {
 	/* Remove browser margins */
 	margin: auto 0;
 }
-
-li {
-	padding: 0.5em;
-}
-
-a {
-	color: white;
-	text-decoration: none;
-}
-
-.main-nav {
-	background-color: green;
-	display: flex;
-	list-style: none;
-	font-size: 3em;
-	margin: 0;
-	padding: 0;
-}
-
-
-#register {
-	margin-left: auto;
-	margin-right: 0.3em;
-}
