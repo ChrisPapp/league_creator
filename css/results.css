@@ -1,5 +1,16 @@
-.grid-container {
+.group-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-gap: 5%;
+  justify-items: center;
+  padding: 100px;
 }
+
+.grid-container {
+  width: 500px;
+  height: 500px;
+}
+
 .grid {
 }
 
