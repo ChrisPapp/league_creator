@@ -1,0 +1,43 @@
+How to make a change for dummies:
+	Step 1 (optional, but recommended):
+		Grab Coffee
+	Step 2:
+		Open git bash at your project directory
+		If is your first change: git clone https://github.com/ChrisPapp/league_creator
+		Otherwise: git pull
+			Optional: Do a git log, and a git show "{commit_hash}", to see what's new
+	Step 3:
+		Write some code
+	Step 4:
+		Run git diff, to check your changes, and git status to see the files you changed
+	Step 5:
+		Run git add file1 file 2 file3... to add these files to the list of the files that will be commited
+		Cheat code: git add .		Adds all the files, use at your own risk
+	Step 6 (optional, but recommended):
+		Run git status and git diff --cached to have another look at the changes you commit
+	Step 7:
+		Run git commit -m "{Briefly describe your changes here}"
+	Step 8:
+		Run git push
+		If it failed, then someone already pushed some changed while you were working.
+		Do git pull (close editor, if it is vim type :q)
+		Do git push again.
+	Step 9:
+		If you haven't already, upload local files to server (see below)
+
+
+How to upload local files to server:
+	Paste all files of the repository, except .git folder, to win-scp. Don't copy files from win-scp to your pc. Always pull files from GitHub.
+
+
+How to test your changes:
+	Step 1:
+		Upload local files to server (see above)
+	Step 2:
+		If everything works, commit and push (see above).
+
+		If it does not work, do git stash to temporarily "hide" your changes. You should now have the original files.
+		Upload these original files to the server (so you leave everything as it was before). If you created any new files, delete them from the server.
+		Do git stash apply, to get back your changes and continue working on them.
+
+		Note: Sometimes, you need to wait a little for the server to apply your changes
