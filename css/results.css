@@ -19,12 +19,12 @@
 }
 
 .grid-item--header {
-  background-color: black;
+  background-color: silver;
   color: white;
 }
 
 .grid-col--fixed-left {
-  background-color: black;
+  background-color: silver;
 }
 
 .grid-item > img {
@@ -36,7 +36,7 @@
 }
 
 .result {
-  background-color: orange;
+  background-color: whitesmoke;
 }
 
 .result > a{
