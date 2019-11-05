@@ -6,7 +6,8 @@
   	<head>
     	<meta charset="utf-8">    
    		<title>League Name</title>
-		<link rel="stylesheet" type="text/css" href="css/default_styles.css"> 
+		<link rel="stylesheet" type="text/css" href="css/default_styles.css">
+    <link rel="stylesheet" type="text/css" href="css/home.css">
   	</head>
   	<body>
   		<%@ include file="navbar.html" %>
