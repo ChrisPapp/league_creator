@@ -10,8 +10,7 @@
   	</head>
   	<body>
   		<%@ include file="navbar.html" %>
-  		<div>
-			<h2>HOME SAMPLE PAGE</h2>
-		</div>		     
-  	</body>
+  	<div>
+      <h2>PROPATHLIMA</h2>
+    </div>
 </html>
