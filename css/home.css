@@ -1,0 +1,12 @@
+body {
+	background: url("../images/backround.jpg");
+	background-size: 100%;
+	background-repeat: no-repeat;
+	padding: 2px;
+	left: 0;
+}
+
+h2 {
+	color: white;
+	text-align: center;
+}
