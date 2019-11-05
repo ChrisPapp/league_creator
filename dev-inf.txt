@@ -4,7 +4,7 @@ How to make a change for dummies:
 	Step 2:
 		Open git bash at your project directory
 		If is your first change: git clone https://github.com/ChrisPapp/league_creator
-		Otherwise: Open git bash at the
+		Otherwise: git pull
 			Optional: Do a git log, and a git show "{commit_hash}", to see what's new
 	Step 3:
 		Write some code
