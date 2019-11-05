@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="league.Team" %>
+<%@ page import="league.League" %>
 <%@ page import="database.DatabaseAccess" %>
+<%@ page import="java.util.ArrayList" %>
 
 <%-- begin html --%>
 <!DOCTYPE html>
@@ -19,7 +21,11 @@
 
     <% 
       DatabaseAccess db = new DatabaseAccess();
-      Team[] teams = db.getLeagueTeams(1);
+
+      // In the future, we get League from session
+      League league = new League(2, "TempLeague");
+
+      ArrayList<Team> teams = league.getLeagueTeams();
     %>
   	<div class="grid-container">
       <div class="grid">
@@ -28,10 +34,10 @@
             <img src="https://seeklogo.com/images/G/greece-super-league-logo-19FBE0771B-seeklogo.com.gif" alt="Super League Logo">
           </div>
           <%
-            for (int i = 0; i < teams.length; i++) {
+            for (int i = 0; i < teams.size(); i++) {
           %>
             <div class="grid-item">
-              <img src=<%= teams[i].getLogo() %> alt=<%= teams[i].getName() %>>
+              <img src=<%= teams.get(i).getLogo() %> alt=<%= teams.get(i).getName() %>>
             </div>
           <%
             }

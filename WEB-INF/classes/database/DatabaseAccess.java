@@ -1,20 +1,37 @@
 package database;
+
 import league.Team;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DatabaseAccess {
-	// In the future we will access the database with username and password
-	String username, password;
+	public final static int delayPeriod = 500;
+    public final static String driverClassName = "com.mysql.jdbc.Driver";
+    public final static String mySqlUrl = "jdbc:mysql://195.251.249.131:3306/";
+    private static final String dbName = "ismgroup62";
+    private static final String username = "ismgroup62";
+    private static final String password = "9xe6kf";
 
-	// In the future it will access the database and get the teams.
-	// Now it returns some random teams
-	public Team[] getLeagueTeams(int leagueId) {
-		Team[] teams = new Team[6];
-		teams[0] = new Team(1, 1, "Olympiacos", "https://seeklogo.com/images/O/Olympiacos_FC-logo-8F8F1A05DD-seeklogo.com.png");
-		teams[1] = new Team(1, 1, "Panathinaikos", "https://upload.wikimedia.org/wikipedia/el/thumb/5/56/Panathinaikos_FC_logo.svg/300px-Panathinaikos_FC_logo.svg.png");
-		teams[2] = new Team(1, 1, "Aek", "https://upload.wikimedia.org/wikipedia/en/thumb/0/04/AEK_Athens_FC_logo.svg/1200px-AEK_Athens_FC_logo.svg.png");
-		teams[3] = new Team(1, 1, "Paok", "https://upload.wikimedia.org/wikipedia/en/thumb/9/92/PAOK_FC_logo.svg/1200px-PAOK_FC_logo.svg.png");
-		teams[4] = new Team(1, 1, "Aris", "https://upload.wikimedia.org/wikipedia/en/thumb/e/e4/Aris_Thessaloniki_F.C._logo.svg/1200px-Aris_Thessaloniki_F.C._logo.svg.png");
-		teams[5] = new Team(1, 1, "Atromitos", "https://seeklogo.com/images/A/atromitos-athens-logo-24668C3087-seeklogo.com.jpg");
-		return teams;
-	}
+    private static Connection con = null;
+
+    public static Connection getConnection(String db, String username, String password) {
+		String databaseUrl = mySqlUrl + db;
+		try {
+			Class.forName(driverClassName);
+			con = DriverManager.getConnection(databaseUrl, username, password);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return con;
+    }
+
+    public static Connection getConnection() throws SQLException {
+		if(con == null) {
+            return getConnection(dbName, username, password);
+        } else {
+            return con;
+        }
+    }
 }
