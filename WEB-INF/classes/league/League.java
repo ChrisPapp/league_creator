@@ -16,8 +16,9 @@ public class League {
 
 	public ArrayList<Team> getLeagueTeams() {
 		ArrayList<Team> teams = new ArrayList<Team>();
+		Connection con = null;
 		try {
-			Connection con = DatabaseAccess.getConnection();
+			con = DatabaseAccess.getConnection();
 			String query = "SELECT * FROM team WHERE league_id = ?";
 			PreparedStatement stmt = con.prepareStatement(query);
 			stmt.setInt(1, this.league_id);
@@ -28,7 +29,16 @@ public class League {
 			}
 		} catch (SQLException e) {
 				System.out.println(e.getMessage());
-		}
+		} finally {
+            if (con != null) {
+                // closes the database connection
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
 		return teams;
 	}
 }
