@@ -13,10 +13,9 @@ public class DatabaseAccess {
     private static final String username = "ismgroup62";
     private static final String password = "9xe6kf";
 
-    private static Connection con = null;
-
     public static Connection getConnection(String db, String username, String password) {
 		String databaseUrl = mySqlUrl + db;
+        Connection con = null;
 		try {
 			Class.forName(driverClassName);
 			con = DriverManager.getConnection(databaseUrl, username, password);
@@ -28,10 +27,7 @@ public class DatabaseAccess {
     }
 
     public static Connection getConnection() throws SQLException {
-		if(con == null) {
             return getConnection(dbName, username, password);
-        } else {
-            return con;
-        }
     }
+
 }

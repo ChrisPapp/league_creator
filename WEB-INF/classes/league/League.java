@@ -17,12 +17,14 @@ public class League {
 	public ArrayList<Team> getLeagueTeams() {
 		ArrayList<Team> teams = new ArrayList<Team>();
 		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
 		try {
 			con = DatabaseAccess.getConnection();
 			String query = "SELECT * FROM team WHERE league_id = ?";
-			PreparedStatement stmt = con.prepareStatement(query);
+			stmt = con.prepareStatement(query);
 			stmt.setInt(1, this.league_id);
-			ResultSet rs = stmt.executeQuery();
+			rs = stmt.executeQuery();
 			while (rs.next()){
 				Team currTeam = new Team(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4));
 				teams.add(currTeam);
@@ -30,14 +32,9 @@ public class League {
 		} catch (SQLException e) {
 				System.out.println(e.getMessage());
 		} finally {
-            if (con != null) {
-                // closes the database connection
-                try {
-                    con.close();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            }
+			try { rs.close(); } catch (Exception e) { /* ignored */ }
+			try { stmt.close(); } catch (Exception e) { /* ignored */ }
+			try { con.close(); } catch (Exception e) { /* ignored */ }
         }
 		return teams;
 	}
