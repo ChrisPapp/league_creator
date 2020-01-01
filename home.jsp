@@ -1,3 +1,5 @@
+
+<!-- @author ΠΑΠΠΑΣ ΧΡΗΣΤΟΣ 8170105 ΚΑΙ ΣΙΜΙΤΖΗ ΙΩΑΝΝΑ 8170117 -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,11 +12,11 @@
 <body>
 	<nav>
 		<ul class=main-nav>
-			<li id="home"><a href="home.html" style= "font-family: 'Montserrat', sans-serif;";>Home</a></li>
-				<li id="results"><a href="results.html" style= "font-family: 'Montserrat', sans-serif;";>Results</a></li>
+			<li id="home"><a href="home.jsp" style= "font-family: 'Montserrat', sans-serif;";>Home</a></li>
+				<li id="results"><a href="results.jsp" style= "font-family: 'Montserrat', sans-serif;";>Results</a></li>
 				<li id="ranking"><a href="ranking.jsp" style= "font-family: 'Montserrat', sans-serif;";>Ranking</a></li>
-				<li id="login"><a href="login.html" style= "font-family: 'Montserrat', sans-serif;";>Log in</a></li>
-				<li id="register"><a href="register.html" style= "font-family: 'Montserrat', sans-serif;";>Register</a></li>
+				<li id="login"><a href="login.jsp" style= "font-family: 'Montserrat', sans-serif;";>Log in</a></li>
+				<li id="register"><a href="register.jsp" style= "font-family: 'Montserrat', sans-serif;";>Register</a></li>
 				<link href="https://fonts.googleapis.com/css?family=Mansalva&display=swap" rel="stylesheet">
 				<link href="https://fonts.googleapis.com/css?family=Lilita+One|Mansalva&display=swap" rel="stylesheet">
 				<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
