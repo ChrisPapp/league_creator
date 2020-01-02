@@ -20,12 +20,25 @@
 		<%@ include file="navbar.html" %>
 
     <% 
+    // Find current league in session or request params
+    League currentLeague = (League) session.getAttribute("league");
+    if (currentLeague == null) {
+      String paramLeague = request.getParameter("league");
+      if (paramLeague != null)
+        currentLeague = League.getByName(paramLeague);
+      // If still not found, go to "Create/Select League" page.
+      if (currentLeague == null) { %>
+      <jsp:forward page="createLeague.jsp"/>
+
+      <% }
+      session.setAttribute("league", currentLeague);
+    }%>
+
+
+    <% 
       DatabaseAccess db = new DatabaseAccess();
 
-      // In the future, we get League from session
-      League league = new League(2, "TempLeague");
-
-      ArrayList<Team> teams = league.getLeagueTeams();
+      ArrayList<Team> teams = currentLeague.getLeagueTeams();
     %>
   	<div class="grid-container">
       <div class="grid">

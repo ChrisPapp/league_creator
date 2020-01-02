@@ -1,22 +1,20 @@
 .group-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: 1fr;
   grid-gap: 5%;
   justify-items: center;
-  padding: 100px;
+  padding: 5%;
 }
 
 .grid-container {
   width: 100%;
-  height: 500px;
 }
 
 .grid {
 }
 
 .grid-col {
-  width: 150px;
-  min-width: 150px;
+  min-width: 80px;
 }
 
 
