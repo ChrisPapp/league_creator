@@ -9,21 +9,12 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Sign up FootClub</title>
-
 	<!-- Bootstrap core CSS -->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<!-- Bootstrap Optional theme -->
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="css/navbar.css">
 	<link rel="stylesheet" href="css/default.css">
-	<link rel="stylesheet" type="text/css" href="css/default_styles.css">
-	<link rel="stylesheet" type="text/css" href="css/navbar.css">
-	<!-- Import the base grid styles -->
-	<link rel="stylesheet" type="text/css" href="css/grid.css">
-	<!-- Ranking specific styles -->
-	<link rel="stylesheet" type="text/css" href="css/ranking.css">
-	<!-- Custom styles for this template -->
+    <%@ include file="LeagueHeadDefaults.jsp" %>
 
 	</head>
 

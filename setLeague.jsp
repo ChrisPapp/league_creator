@@ -11,6 +11,7 @@
       if (currentLeague == null) { %>
       <%-- <jsp:forward page="createLeague.jsp"/> --%>
       <%
+      // Temporarily set Super League as the currentLeague for testing, instead of the forward command above.
       currentLeague = new League(2, "Super League", "https://seeklogo.com/images/G/greece-super-league-logo-19FBE0771B-seeklogo.com.gif");
       %>
       <% }

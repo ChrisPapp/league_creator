@@ -3,25 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>The FootClub</title>
-	<link rel="stylesheet" type="text/css" href="css/default_styles.css">
-	<link rel="stylesheet" type="text/css" href="css/navbar.css">
+	<%@ include file="LeagueHeadDefaults.jsp" %>
 	<link rel="stylesheet" type="text/css" href="css/home.css">
 	<link href="https://fonts.googleapis.com/css?family=Lilita+One|Mansalva&display=swap" rel="stylesheet">
 </head>
 <body>
-	<nav>
-		<ul class=main-nav>
-			<li id="home"><a href="home.jsp" style= "font-family: 'Montserrat', sans-serif;";>Home</a></li>
-				<li id="results"><a href="results.jsp" style= "font-family: 'Montserrat', sans-serif;";>Results</a></li>
-				<li id="ranking"><a href="ranking.jsp" style= "font-family: 'Montserrat', sans-serif;";>Ranking</a></li>
-				<li id="login"><a href="login.jsp" style= "font-family: 'Montserrat', sans-serif;";>Log in</a></li>
-				<li id="register"><a href="register.jsp" style= "font-family: 'Montserrat', sans-serif;";>Register</a></li>
-				<link href="https://fonts.googleapis.com/css?family=Mansalva&display=swap" rel="stylesheet">
-				<link href="https://fonts.googleapis.com/css?family=Lilita+One|Mansalva&display=swap" rel="stylesheet">
-				<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-		</ul>
-	</nav>
+	<%@ include file="navbar.html" %>
 	
 	<br>
 	<br>

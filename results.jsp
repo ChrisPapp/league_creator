@@ -3,15 +3,11 @@
 <%@ page import="database.DatabaseAccess" %>
 <%@ page import="java.util.ArrayList" %>
 
-<%@ include file="setLeague.jsp" %>
-
 <%-- begin html --%>
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-  	<meta charset="utf-8">    
- 		<title><%=currentLeague.getName() %></title>
-		<link rel="stylesheet" type="text/css" href="css/default_styles.css"> 
+	<head> 	
+<%@ include file="LeagueHeadDefaults.jsp" %>
     <!-- Import the base grid styles -->
     <link rel="stylesheet" type="text/css" href="css/grid.css">
     <!-- Result specific styles -->

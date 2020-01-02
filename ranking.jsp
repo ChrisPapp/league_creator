@@ -8,9 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-  	<meta charset="utf-8">    
- 		<title>League Name</title>
-		<link rel="stylesheet" type="text/css" href="css/default_styles.css"> 
+  	<%@ include file="LeagueHeadDefaults.jsp" %>
     <!-- Import the base grid styles -->
     <link rel="stylesheet" type="text/css" href="css/grid.css">
     <!-- Ranking specific styles -->
@@ -18,21 +16,6 @@
 	</head>
 	<body>
 		<%@ include file="navbar.html" %>
-
-    <% 
-    // Find current league in session or request params
-    League currentLeague = (League) session.getAttribute("league");
-    if (currentLeague == null) {
-      String paramLeague = request.getParameter("league");
-      if (paramLeague != null)
-        currentLeague = League.getByName(paramLeague);
-      // If still not found, go to "Create/Select League" page.
-      if (currentLeague == null) { %>
-      <jsp:forward page="createLeague.jsp"/>
-
-      <% }
-      session.setAttribute("league", currentLeague);
-    }%>
 
 
     <% 

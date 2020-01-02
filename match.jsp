@@ -4,9 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
   	<head>
-    	<meta charset="utf-8">    
-   		<title>The FootClub</title>
-  		<link rel="stylesheet" type="text/css" href="css/default_styles.css"> 
+    	<%@ include file="LeagueHeadDefaults.jsp" %>
       <!-- Import the base grid styles -->
       <link rel="stylesheet" type="text/css" href="css/grid.css">
       <!-- Match specific styles -->

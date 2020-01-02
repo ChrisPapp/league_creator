@@ -17,14 +17,8 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<!-- Bootstrap Optional theme -->
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="css/navbar.css">
 	<link rel="stylesheet" href="css/default.css">
-	<link rel="stylesheet" type="text/css" href="css/default_styles.css">
-	<link rel="stylesheet" type="text/css" href="css/navbar.css">
-	<!-- Import the base grid styles -->
-	<link rel="stylesheet" type="text/css" href="css/grid.css">
-	<!-- Ranking specific styles -->
-	<link rel="stylesheet" type="text/css" href="css/ranking.css">
+	<%@ include file="LeagueHeadDefaults.jsp" %>
 	<!-- Custom styles for this template -->
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
