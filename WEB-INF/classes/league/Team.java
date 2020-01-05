@@ -20,6 +20,14 @@ public class Team {
 	}
 
 	public int getId() {
+		return this.id;
+	}
+
+	public int getLeagueId() {
 		return this.league;
+	}
+
+	public boolean equals(Team other) {
+		return other.getId() == this.getId();
 	}
 }

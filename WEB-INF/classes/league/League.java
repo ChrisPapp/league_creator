@@ -16,7 +16,8 @@ public class League {
 		this.logo_path = logo;
 	}
 
-	// Search for a league in the database with the give name. If it does not exist return null
+	// Search for a league in the database with the give name. If it does not exist
+	// return null
 	public static League getByName(String leagueName) {
 		League league = null;
 		Connection con = null;
@@ -28,17 +29,26 @@ public class League {
 			stmt = con.prepareStatement(query);
 			stmt.setString(1, leagueName);
 			rs = stmt.executeQuery();
-			while (rs.next()){
+			while (rs.next()) {
 				league = new League(rs.getInt(1), rs.getString(2), rs.getString(3));
 			}
 		} catch (SQLException e) {
-				System.out.println(e.getMessage());
+			System.out.println(e.getMessage());
 		} finally {
-			try { rs.close(); } catch (Exception e) { /* ignored */ }
-			try { stmt.close(); } catch (Exception e) { /* ignored */ }
-			try { con.close(); } catch (Exception e) { /* ignored */ }
+			try {
+				rs.close();
+			} catch (Exception e) {
+				/* ignored */ }
+			try {
+				stmt.close();
+			} catch (Exception e) {
+				/* ignored */ }
+			try {
+				con.close();
+			} catch (Exception e) {
+				/* ignored */ }
 			return league;
-        }
+		}
 	}
 
 	public ArrayList<Team> getLeagueTeams() {
@@ -52,17 +62,26 @@ public class League {
 			stmt = con.prepareStatement(query);
 			stmt.setInt(1, this.league_id);
 			rs = stmt.executeQuery();
-			while (rs.next()){
+			while (rs.next()) {
 				Team currTeam = new Team(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4));
 				teams.add(currTeam);
 			}
 		} catch (SQLException e) {
-				System.out.println(e.getMessage());
+			System.out.println(e.getMessage());
 		} finally {
-			try { rs.close(); } catch (Exception e) { /* ignored */ }
-			try { stmt.close(); } catch (Exception e) { /* ignored */ }
-			try { con.close(); } catch (Exception e) { /* ignored */ }
-        }
+			try {
+				rs.close();
+			} catch (Exception e) {
+				/* ignored */ }
+			try {
+				stmt.close();
+			} catch (Exception e) {
+				/* ignored */ }
+			try {
+				con.close();
+			} catch (Exception e) {
+				/* ignored */ }
+		}
 		return teams;
 	}
 
@@ -77,17 +96,26 @@ public class League {
 			stmt = con.prepareStatement(query);
 			stmt.setInt(1, this.league_id);
 			rs = stmt.executeQuery();
-			while (rs.next()){
+			while (rs.next()) {
 				Group currGroup = new Group(rs.getInt(1), rs.getString(3));
 				groups.add(currGroup);
 			}
 		} catch (SQLException e) {
-				System.out.println(e.getMessage());
+			System.out.println(e.getMessage());
 		} finally {
-			try { rs.close(); } catch (Exception e) { /* ignored */ }
-			try { stmt.close(); } catch (Exception e) { /* ignored */ }
-			try { con.close(); } catch (Exception e) { /* ignored */ }
-        }
+			try {
+				rs.close();
+			} catch (Exception e) {
+				/* ignored */ }
+			try {
+				stmt.close();
+			} catch (Exception e) {
+				/* ignored */ }
+			try {
+				con.close();
+			} catch (Exception e) {
+				/* ignored */ }
+		}
 		return groups;
 	}
 
@@ -95,7 +123,7 @@ public class League {
 		return this.name;
 	}
 
-	public String getLogo()	{
+	public String getLogo() {
 		return this.logo_path;
 	}
 }
