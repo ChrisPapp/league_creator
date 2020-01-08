@@ -1,5 +1,11 @@
 li {
     padding: 0.5em;
+    display: flex;
+    align-items: center;
+}
+
+body {
+    margin-top: 100px;
 }
 
 a {
@@ -8,15 +14,37 @@ a {
 }
 
 .main-nav {
-	background-color: #00004d;
-	display: flex;
-	list-style: none;
-	font-size: 1.5em;
-	margin: 0;
-	padding: 0;
+    background-color: #00004d;
+    display: flex;
+    list-style: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-bottom: 40px;
+    z-index: 9999;
 }
 
-#register {
-	margin-left: auto;
-	margin-right: 0.3em;
+@media all and (orientation:portrait) {
+    .main-nav {
+        font-size: 2.2em;
+    }
+}
+
+@media all and (orientation:landscape) {
+    .main-nav {
+        font-size: 1.5em;
+    }
+}
+
+.push {
+    margin-left: auto;
+    margin-right: 0.3em;
+}
+
+a.underline {
+    text-decoration: underline;
 }

@@ -1,32 +1,36 @@
 .grid-container {
-  display: grid;
-  overflow: auto;
-  height: auto;
-  width: auto;
+    display: grid;
+    overflow: auto;
+    height: auto;
+    width: auto;
 }
+
 .grid {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    max-height: 40vw;
+    overflow: auto;
 }
+
 .grid-col {
-  width: 150px;
-  min-width: 150px;
+    width: 150px;
+    min-width: 150px;
 }
 
 .grid-item {
-  height: 100px;
-  min-height: 100px;
+    height: 100px;
+    min-height: 100px;
 }
 
 .grid-item--header {
-  min-height: 100px;
-  position: sticky;
-  top: 0;
+    min-height: 100px;
+    position: sticky;
+    top: 0;
 }
 
 .grid-col--fixed-left {
-  position: sticky;
-  left: 0;
-  z-index: 9998;
+    position: sticky;
+    left: 0;
+    z-index: 9998;
 }

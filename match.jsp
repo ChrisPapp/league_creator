@@ -12,7 +12,7 @@
       <link rel="stylesheet" type="text/css" href="css/match.css">
   	</head>
   	<body>
-  		<%@ include file="navbar.html" %>
+  		<%@ include file="navbar.jsp" %>
       <%  Integer matchId = null;
           String matchIdParam = request.getParameter("match");
           Match currentMatch = null;

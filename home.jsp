@@ -8,7 +8,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Lilita+One|Mansalva&display=swap" rel="stylesheet">
 </head>
 <body>
-	<%@ include file="navbar.html" %>
+	<%@ include file="navbar.jsp" %>
 	
 	<br>
 	<br>

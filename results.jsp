@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="css/results.css">
 	</head>
 	<body>
-		<%@ include file="navbar.html" %>
+		<%@ include file="navbar.jsp" %>
     <% ArrayList<Group> groups = currentLeague.getLeagueGroups(); %>
     <div class="group-container">
       <% for (Group group : groups)  { %>
