@@ -20,12 +20,15 @@
     <div class="group-container">
       <% for (Group group : groups)  { %>
        <div class="grid-container">
+          <div class="group-title">
+            <h2><%= group.getName() %></h2>
+          </div>
         <div class="grid">
         <% ArrayList<Team> teams = group.getGroupTeams(); 
          // First create the upper left column with all the logos. First goes the league Logo, the logo of every team.
         %>
           <div class="grid-col grid-col--fixed-left">
-            <div class="grid-item grid-item--header">
+            <div class="grid-item grid-item--header grid-corner">
               <img src=<%= currentLeague.getLogo() %> alt=<%= currentLeague.getName() %>>
             </div>
          <% for (Team team: teams) { %>

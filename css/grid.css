@@ -9,8 +9,19 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
-    max-height: 40vw;
     overflow: auto;
+}
+
+@media all and (orientation:landscape) {
+    .grid {
+        max-height: 40vw;
+    }
+}
+
+@media all and (orientation:portrait) {
+    .grid {
+        max-height: 80vw;
+    }
 }
 
 .grid-col {
@@ -32,5 +43,9 @@
 .grid-col--fixed-left {
     position: sticky;
     left: 0;
+    z-index: 9997;
+}
+
+.grid-corner {
     z-index: 9998;
 }

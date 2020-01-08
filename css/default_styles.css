@@ -14,3 +14,9 @@ body {
     width: 100%;
     height: 100vh;
 }
+
+.group-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

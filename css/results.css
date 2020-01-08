@@ -29,14 +29,15 @@
     color: white;
 }
 
-.grid-col--fixed-left {
+.grid-col--fixed-left .grid-item {
     background-color: silver;
 }
 
 .grid-item>img {
     width: auto;
-    max-width: 150px;
-    height: 100%;
+    height: auto;
+    max-height: 100%;
+    max-width: 100%;
     color: red;
     font-size: 1.5em;
 }

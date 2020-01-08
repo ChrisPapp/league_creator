@@ -6,9 +6,12 @@
     padding: 5%;
 }
 
+.grid-container {
+    width: 100%;
+}
+
 .grid-col {
-    width: 150px;
-    min-width: 150px;
+    min-width: 80px;
 }
 
 .grid-item {
@@ -17,7 +20,6 @@
     justify-content: center;
     align-items: center;
     padding: 10px;
-    height: 50px;
 }
 
 .grid-item--header {
@@ -31,12 +33,33 @@
 
 .grid-item>img {
     width: auto;
-    max-width: 150px;
-    height: 100%;
+    height: auto;
+    max-height: 100%;
+    max-width: 100%;
     color: red;
     font-size: 1.5em;
 }
 
 .result {
     background-color: whitesmoke;
+}
+
+@media all and (orientation:landscape) {
+    h2 {
+        text-align: center;
+        font-size: 2em;
+    }
+    p {
+        font-size: 1.8em;
+    }
+}
+
+@media all and (orientation:portrait) {
+    h2 {
+        text-align: center;
+        font-size: 1.5em;
+    }
+    p {
+        font-size: 1.7em;
+    }
 }

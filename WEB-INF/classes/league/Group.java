@@ -2,6 +2,8 @@ package league;
 import database.DatabaseAccess;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeSet;
+import java.util.Collections;
 import java.sql.*;
 
 public class Group {
@@ -46,6 +48,61 @@ public class Group {
                 /* ignored */ }
         }
 		return teams;
+    }
+
+    public TreeSet<TeamStats> getGroupRankings() {
+        final TreeSet<TeamStats> rankings = new TreeSet<TeamStats>(Collections.reverseOrder()); // TreeSet are in ascending order, we need descending
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            con = DatabaseAccess.getConnection();
+            final String query = "SELECT team.*, sum(teamStats.goals_scored) AS goals_scored, " +
+            "sum(enemyStats.goals_scored) AS goals_against, " +
+            "count(case when teamStats.goals_scored > enemyStats.goals_scored then 1 else null end) AS wins, " +
+            "count(case when teamStats.goals_scored = enemyStats.goals_scored then 1 else null end) AS draws," +
+            "count(case when teamStats.goals_scored < enemyStats.goals_scored then 1 else null end) AS defeats " +
+            "FROM stats teamStats " +
+            "JOIN ismgroup62.match m ON m.idmatch = teamStats.match_id " +
+            "JOIN stats enemyStats ON teamStats.team_id != enemyStats.team_id AND m.idmatch = enemyStats.match_id " +
+            "JOIN team ON teamStats.team_id = team.idteam " +
+            "WHERE m.group_id = ? " +
+            "GROUP BY teamStats.team_id;";
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, this.groupId);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                final Team currTeam = new Team(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4));
+                Integer goalsScored = rs.getInt("goals_scored");
+                if (rs.wasNull()) {
+                    goalsScored = null;
+                }
+                Integer goalsAgainst = rs.getInt("goals_against");
+                if (rs.wasNull()) {
+                    goalsAgainst = null;
+                }
+                final Integer wins = rs.getInt("wins");
+                final Integer draws = rs.getInt("draws");
+                final Integer defeats = rs.getInt("defeats");
+                rankings.add(new TeamStats(currTeam, goalsScored, goalsAgainst, wins, draws, defeats));
+            }
+        } catch (final SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                rs.close();
+            } catch (final Exception e) {
+                /* ignored */ }
+            try {
+                stmt.close();
+            } catch (final Exception e) {
+                /* ignored */ }
+            try {
+                con.close();
+            } catch (final Exception e) {
+                /* ignored */ }
+        }
+		return rankings;
     }
     
     /*  Returns results in map of home team ids to a another map of away team ids to coresponding Result. 
@@ -103,4 +160,8 @@ public class Group {
         }
 		return resultMap;
 	}
+
+    public String getName() {
+        return name;
+    }
 }
