@@ -7,7 +7,7 @@ import java.sql.*;
 
 
 // *
-// * @author силитфг иыамма 8170117
+// * @author О©╫О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫ 8170117
 // *
 // *
 
@@ -35,7 +35,7 @@ public class UserDAO {
 
 					if ( rs.next() ) {
 
-						user = new User(rs.getString("name"), rs.getString("surname"), rs.getString("email"), rs.getString("username"), rs.getString("password"));
+						// user = new User(rs.getString("name"), rs.getString("surname"), rs.getString("email"), rs.getString("username"), rs.getString("password"));
 					}
 					rs.close();
 					stmt.close();

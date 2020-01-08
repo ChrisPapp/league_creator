@@ -56,10 +56,14 @@
   background-color: rgb(93, 238, 93);
 }
 
+.result_draw {
+  background-color: rgb(221, 213, 94);
+}
+
 .result_loss {
   background-color: rgb(236, 82, 82);
 }
 
 .result_pending {
-  background-color: rgb(172, 160, 95);
+  background-color: rgb(182, 176, 141);
 }

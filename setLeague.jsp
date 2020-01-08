@@ -1,6 +1,12 @@
-<%@ page import="league.League" %>   
+<%@ page import="league.League" %>
+<%@ page import="league.User" %>
    
    <% 
+    // Set currentUser variable. Temporary hardcode user for testing...
+    User currentUser =  (User) session.getAttribute("user");
+    if (currentUser == null) {
+      currentUser = new User(1, "Chris", "Pappas", "chrispappas99@yahoo.gr", "chrispappas", "1234", true);
+    }
     // Find current league in session or request params
     League currentLeague = (League) session.getAttribute("league");
     if (currentLeague == null) {

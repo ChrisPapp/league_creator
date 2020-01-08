@@ -1,6 +1,6 @@
 
 // *
- //* @author силитфг иыамма 8170117
+ //* @author О©╫О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫ 8170117
  //*
  //*/
 
@@ -10,20 +10,23 @@ import database.DatabaseAccess;
 
 public class User {
 
+	private int id;
 	private String name;
 	private String surname;
 	private String email;
 	private String username;
 	private String password;
+	private boolean canReferee;
 
 
-	public User(String name, String surname, String email, String username, String password) {
-
+	public User(int id, String name, String surname, String email, String username, String password, boolean canReferee) {
+		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
 		this.username = username;
 		this.password = password;
+		this.canReferee = canReferee;
 	}
 
 
@@ -91,6 +94,15 @@ public class User {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public boolean canReferee()
+	{
+		return this.canReferee;
+	}
+	
+	public int getId(){
+		return this.id;
 	}
 
 	@Override
