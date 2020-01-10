@@ -1,6 +1,7 @@
 
 <!-- @author ΣΙΜΙΤΖΗ ΙΩΑΝΝΑ 8170117 -->
 <%@ page import="league.*, java.util.List" %>
+<%@ include file="setLeague.jsp"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -90,8 +91,8 @@
       <label for="exampleInputPassword1" class="col-sm-2 control-label" style= "font-family: 'Montserrat', sans-serif;"> <h4 style="color:#00004d"> Password </h4> </label>
       <div class="col-sm-10">
       <input type="password" class="form-control" id="exampleInputPassword1" name= "Password" placeholder="Password">
+      </div>
   </div>
-</div>
 
   <div class="form-group">
     <label for="inputpassword3" class="col-sm-2 control-label" style= "font-family: 'Montserrat', sans-serif;"> <h4 style="color:#00004d"> Confirm </h4> </label>
@@ -99,10 +100,16 @@
       <input type="password" class="form-control" id="inputPassword3" name="Confirm" placeholder="confirm your password">
     </div>
   </div>
+  
+   <div class="form-group">
+    <label for="inputphone3" class="col-sm-2 control-label" style= "font-family: 'Montserrat', sans-serif;"> <h4 style="color:#00004d"> Phone </h4> </label>
+    <div class="col-sm-10">
+      <input type="phone" class="form-control" id="inputPhone3" name="Phone" placeholder="Enter your phone number">
+    </div>
+   </div>
 
-
-  <div class="form-group">
-  	<div class="col-sm-offset-2 col-sm-10">
+	<div class="form-group">
+  	 <div class="col-sm-offset-2 col-sm-10">
   		<div class="radio">
 
 

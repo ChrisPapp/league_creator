@@ -18,7 +18,7 @@ public class UserDAO {
 
 			Connection con = null;
 			DatabaseAccess db = new DatabaseAccess();
-			String sqlQuery = "SELECT * FROM user WHERE username=? AND password=? ;";
+			String sqlQuery = "SELECT * FROM user WHERE username=? AND pswd=? ;";
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 		 	User user = null;
@@ -35,7 +35,7 @@ public class UserDAO {
 
 					if ( rs.next() ) {
 
-						// user = new User(rs.getString("name"), rs.getString("surname"), rs.getString("email"), rs.getString("username"), rs.getString("password"));
+						 user = new User(rs.getString("name"), rs.getString("surname"), rs.getString("mail"), rs.getString("username"), rs.getString("pswd"), rs.getString("phone"), rs.getBoolean("canReferee"));
 					}
 					rs.close();
 					stmt.close();
@@ -60,8 +60,8 @@ public class UserDAO {
 			Connection con = null;
 			DatabaseAccess db = new DatabaseAccess ();
 			String insertNewUserSQL = "INSERT INTO user "
-					+ " ( username, name, surname, email, password) "
-					+ " VALUES (?, ?, ?, ?, ?);";
+					+ " ( name, surname, pswd, mail, phone, username) "
+					+ " VALUES (?, ?, ?, ?, ?, ?);";
 
 			try {
 
@@ -69,11 +69,12 @@ public class UserDAO {
 
 					PreparedStatement stmt = con.prepareStatement(insertNewUserSQL);
 
-					stmt.setString(1, user.getUsername());
-					stmt.setString(2, user.getName());
-					stmt.setString(3, user.getSurname());
-					stmt.setString(4, user.getEmail());
-					stmt.setString(5, user.getPassword());
+					stmt.setString(1, user.getName());
+					stmt.setString(2, user.getSurname());
+					stmt.setString(3, user.getEmail());
+					stmt.setString(4, user.getPassword());
+					stmt.setString(5, user.getUsername());
+					stmt.setString(6, user.getPhone());
 
 					stmt.executeUpdate();
 					stmt.close();

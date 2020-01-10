@@ -16,16 +16,17 @@ public class User {
 	private String email;
 	private String username;
 	private String password;
+	private String phone;
 	private boolean canReferee;
 
 
-	public User(int id, String name, String surname, String email, String username, String password, boolean canReferee) {
-		this.id = id;
+	public User(String name, String surname, String email, String username, String password, String phone, boolean canReferee) {
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
 		this.username = username;
 		this.password = password;
+		this.phone = phone;
 		this.canReferee = canReferee;
 	}
 
@@ -89,18 +90,24 @@ public class User {
 		return password;
 	}
 
-	/**
-	 * @param password the password to set
-	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPhone() {
+			return phone;
+		}
+
+
+		public void setPhone(String phone) {
+			this.phone = phone;
 	}
 
 	public boolean canReferee()
 	{
 		return this.canReferee;
 	}
-	
+
 	public int getId(){
 		return this.id;
 	}

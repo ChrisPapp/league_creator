@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ page import="league_creator.*, java.util.List" %>
+<%@ page import="league.*, java.util.List" %>
 
 
 <!-- @author ΣΙΜΙΤΖΗ ΙΩΑΝΝΑ 8170117 -->
@@ -41,13 +41,13 @@
 	
 	userDAO.authenticate( username, password);
 	User user = userDAO.authenticate( username, password);
-	session.setAttribute("ex1buser2019",user);%>	
-	<jsp:forward page="home.html"/>
+	session.setAttribute("user1",user);%>	
+	<jsp:forward page="profile.jsp"/>
 	
 	<% } catch (Exception e){
 	  request.setAttribute("message", e.getMessage());
 	  %>
-	  <jsp:forward page="login.html"/>
+	  <jsp:forward page="login.jsp"/>
 	 
 	 <% } %>
 	 

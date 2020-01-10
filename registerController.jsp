@@ -78,12 +78,12 @@
 
  String answer = request.getParameter("Answer");
  
- 
+ String phone = request.getParameter("Phone");
 
  if ( confirm.equals(password) ){ %>
 
 	
-  <% User user = new User(name, surname, email, username, password); %>
+  <% User user = new User(name, surname, email, username, password, phone, false); %>
 	
   <% UserDAO userDAO = new UserDAO(); %>
   <% userDAO.register(user); %>
@@ -99,7 +99,8 @@
     <b>Surname: </b><%= surname %> <br>
     <b>Email: </b><%= email %> <br>
     <b>Username: </b><%= username %> <br>
-
+	<b>Phone: </b><%= phone %> <br>
+	
   <% }else{  %>
   	 
   	  <!-- Page Title -->

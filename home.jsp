@@ -15,8 +15,6 @@
 	<br>
 	<br>
 	<br>
-	<br>
-	<br>
 	<div class="header" style= "font-family: 'Lilita One', cursive;";>
 		<div align="center">
 			<font color="white"><h1> Welcome to FootClub</h1></font>
