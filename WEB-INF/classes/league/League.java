@@ -3,6 +3,7 @@ package league;
 import database.DatabaseAccess;
 import java.util.ArrayList;
 import java.sql.*;
+import java.time.LocalTime;
 
 public class League {
 
@@ -125,5 +126,47 @@ public class League {
 
 	public String getLogo() {
 		return this.logo_path;
+	}
+
+	// Get League Posts ordered by date
+	public ArrayList<Post> getPosts() {
+		Connection con = null;
+		PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Post> postList = new ArrayList<Post>();
+		try {
+			con = DatabaseAccess.getConnection();
+			String query = "SELECT * FROM post JOIN " + DatabaseAccess.getDatabaseName() + ".user u ON post.poster_id = u.iduser WHERE u.league_id = ?";
+			stmt = con.prepareStatement(query);
+            stmt.setInt(1, this.getId());
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				postList.add(new Post(rs.getInt("idpost"), rs.getString("title"), rs.getString("content"), new User(1, "Chris", "Pappas", "chrispappas99@yahoo.gr", "chrispappas", "1234", true), LocalTime.now()));
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception e) {
+				/* ignored */ }
+			try {
+				stmt.close();
+			} catch (Exception e) {
+				/* ignored */ }
+			try {
+				con.close();
+			} catch (Exception e) {
+				/* ignored */ }
+		}
+		return postList;
+	}
+
+	public int getId() {
+		return league_id;
+	}
+
+	public void setId(int league_id) {
+		this.league_id = league_id;
 	}
 }

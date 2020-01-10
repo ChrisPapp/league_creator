@@ -1,0 +1,11 @@
+.postList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.postList a {
+    color: rgb(76, 136, 15);
+    text-decoration: underline;
+}
