@@ -82,9 +82,18 @@
       </div>
     </div>
 
+    <div id="matchInfo">
+      <div class=clickable id="date">
+        <p>Referee: <span id="refereeName"><%=currentMatch.getRefereeName()%></span></p>
+      </div>
+      <div class=clickable id="date">
+        <p><%=currentMatch.getDateString()%></p>
+      </div>
+    </div>
+
     <% if (currentUser != null && currentUser.canReferee()) { %>
       <div class="submitContainer">
-        <input type="submit" value="Update match"/>
+        	<button class="btn btn-lg btn-primary btn-success" type="submit" style= "font-family: 'Lilita One', cursive;";>Update match</button>
       </div>
       </form>	
       <%-- Code for clicking and changing to input box --%>

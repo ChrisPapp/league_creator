@@ -39,7 +39,7 @@ public class Post {
 			while (rs.next()) {
                 java.sql.Timestamp ts = rs.getObject("date", java.sql.Timestamp.class);
                 LocalDateTime dateTime = ts.toLocalDateTime();
-                User user = new User("Chris", "Pappas", "chrispappas99@yahoo.gr", "chrispappas", "1234", "6969696969", true, new League(1, "", ""));
+                User user = new User("Chris", "Pappas", "chrispappas99@yahoo.gr", "chrispappas", "1234", "6969696969", true, 2);
 				post = new Post(rs.getInt("idpost"), rs.getString("title"), rs.getString("content"), user, dateTime);
 			}
 		} catch (SQLException e) {
@@ -102,6 +102,6 @@ public class Post {
     }
     
     public String getDateString() {
-        return "" + time.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault()) + " " + time.format(DateTimeFormatter.ofPattern("d MMM YYYY hh:mm").withLocale(Locale.getDefault()));
+        return "" + time.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault()) + " " + time.format(DateTimeFormatter.ofPattern("d MMM YYYY HH:mm").withLocale(Locale.getDefault()));
     }
 }

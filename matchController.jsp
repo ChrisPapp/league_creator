@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="league.*" %>
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.time.format.DateTimeParseException" %>
 <%@ include file="setLeague.jsp" %>
 
 <%  Match match = (Match) session.getAttribute("matchToUpdate");
@@ -10,6 +13,7 @@
         String awayGoals = request.getParameter("awayGoals");
         String awayYellows = request.getParameter("awayYellows");
         String awayReds = request.getParameter("awayReds");
+        String matchDate = request.getParameter("date");
 
         if (homeGoals != null) {
             try {
@@ -53,8 +57,16 @@
                 // Ignored, referee should be careful.
             }
         }
+        if (matchDate != null) {  
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            try {
+                LocalDateTime dateTime = LocalDateTime.parse(matchDate, formatter);
+                match.setMatchDate(dateTime);
+            } catch (DateTimeParseException e) { 
+                // Who has time for error handling
+            }
+        }
         match.update(currentUser.getId());
     }
 %>
-
 <jsp:forward page="match.jsp"/>

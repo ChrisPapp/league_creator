@@ -4,7 +4,10 @@ import database.DatabaseAccess;
 import java.util.ArrayList;
 import java.util.Date;
 import java.sql.*;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 public class Match {
 
@@ -14,9 +17,9 @@ public class Match {
     private final Team away;
     private Stats awayStats;
     private String refereeName;
-    private LocalTime matchDate;
+    private LocalDateTime matchDate;
 
-    public Match(int id, Team home, Stats homeStats, Team away, Stats awayStats, String refName, LocalTime date) {
+    public Match(int id, Team home, Stats homeStats, Team away, Stats awayStats, String refName, LocalDateTime date) {
         this.matchId = id;
         this.home = home;
         this.homeStats = homeStats;
@@ -78,7 +81,9 @@ public class Match {
                     red = null;
                 }
                 Stats awayStats = new Stats(goals, yellow, red);
-				match = new Match(rs.getInt(1), home, homeStats, away, awayStats, rs.getString(2)!= null && rs.getString(3) != null ? rs.getString(2) + rs.getString(3) : "", (LocalTime) rs.getObject(4));
+                java.sql.Timestamp ts = rs.getObject(4, java.sql.Timestamp.class);
+                LocalDateTime dateTime = ts.toLocalDateTime();
+				match = new Match(rs.getInt(1), home, homeStats, away, awayStats, rs.getString(2)!= null && rs.getString(3) != null ? rs.getString(2) + " " + rs.getString(3) : "", dateTime);
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -114,7 +119,8 @@ public class Match {
             "WHERE idmatch = ?";    
             stmt = con.prepareStatement(queryMatch);
             stmt.setObject(1, refId);
-            stmt.setObject(2, this.matchDate);
+            java.sql.Timestamp ts = java.sql.Timestamp.valueOf(this.matchDate);
+            stmt.setTimestamp(2, ts);
             stmt.setInt(3, this.matchId);
             stmt.executeUpdate();
             String queryStats = "UPDATE " + DatabaseAccess.getDatabaseName() + ".stats SET " +
@@ -194,12 +200,18 @@ public class Match {
         this.refereeName = refereeName;
     }
 
-    public LocalTime getMatchDate() {
+    public LocalDateTime getMatchDate() {
         return matchDate;
     }
 
-    public void setMatchDate(LocalTime matchDate) {
+    public void setMatchDate(LocalDateTime matchDate) {
         this.matchDate = matchDate;
+    }
+
+    public String getDateString() {
+        if (this.matchDate == null)
+            return null;
+        return "" + matchDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault()) + " " + matchDate.format(DateTimeFormatter.ofPattern("d MMM YYYY HH:mm").withLocale(Locale.getDefault()));
     }
     
 }
