@@ -39,17 +39,22 @@
 	
 	try{
 	
-	userDAO.authenticate( username, password);
-	User user = userDAO.authenticate( username, password);
-	session.setAttribute("user1",user);%>	
-	<jsp:forward page="profile.jsp"/>
-	
-	<% } catch (Exception e){
-	  request.setAttribute("message", e.getMessage());
-	  %>
-	  <jsp:forward page="login.jsp"/>
+	   userDAO.authenticate( username, password);
+	   User user = userDAO.authenticate(username,password);
+	   session.setAttribute("user1", user); %>
+	   <jsp:forward page="profile.jsp"/>
+			
+	    <%
 	 
-	 <% } %>
+	} catch (Exception e) {
+		
+		request.setAttribute("message",e.getMessage());
+	%>
+		<jsp:forward page="login.jsp"/>
+	
+	<% } %>
+	
+	
 	 
 
 	<!-- Bootstrap core JavaScript

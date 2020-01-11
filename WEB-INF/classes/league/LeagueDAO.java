@@ -52,5 +52,38 @@ public class LeagueDAO {
 
  }
 
+ public static League getLeagueByName(String leagueName) {
+ 		League league = null;
+ 		Connection con = null;
+ 		PreparedStatement stmt = null;
+ 		ResultSet rs = null;
+ 		try {
+ 			con = DatabaseAccess.getConnection();
+ 			String query = "SELECT * FROM league WHERE league.name = ?";
+ 			stmt = con.prepareStatement(query);
+ 			stmt.setString(1, leagueName);
+ 			rs = stmt.executeQuery();
+ 			while (rs.next()) {
+ 				league = new League(rs.getInt(1), rs.getString(2), rs.getString(3));
+ 			}
+ 		} catch (SQLException e) {
+ 			System.out.println(e.getMessage());
+ 		} finally {
+ 			try {
+ 				rs.close();
+ 			} catch (Exception e) {
+ 				/* ignored */ }
+ 			try {
+ 				stmt.close();
+ 			} catch (Exception e) {
+ 				/* ignored */ }
+ 			try {
+ 				con.close();
+ 			} catch (Exception e) {
+ 				/* ignored */ }
+ 			return league;
+ 		}
+	}
+
 
 }

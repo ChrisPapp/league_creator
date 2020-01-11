@@ -74,31 +74,22 @@
 	
  <% } else {
 	 
+	 UserDAO userDAO = new UserDAO();
+	 LeagueDAO leagueDAO = new LeagueDAO();
 	 User user = (User) session.getAttribute("user1");
+	 League idleague = leagueDAO.getLeagueByName(leaguechoice);
+	 userDAO.insertleague(user, idleague);
+ }
 %>
-	 
-<%
-
- if (session.getAttribute("league1") == null) {
-	 
-%>
-
-	<jsp:forward page ="chooseleague.jsp"></jsp:forward>
-	
- <% } else {
-	 
-	 League league = (League) session.getAttribute("league1");
-	 
-%>
-	 
-	 
+		 
 	 
 <div class="page-header" style= "font-family: 'Lilita One', cursive;";>
  <h1> <p> Registration done! </h1>
  </div>
 
 
-
+</body>
+</html>
 
 
 

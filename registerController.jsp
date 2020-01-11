@@ -83,10 +83,10 @@
  if ( confirm.equals(password) ){ %>
 
 	
-  <% User user = new User(name, surname, email, username, password, phone, false); %>
+  <% User user1 = new User(name, surname, email, username, password, phone, false, 2); %>
 	
   <% UserDAO userDAO = new UserDAO(); %>
-  <% userDAO.register(user); %>
+  <% userDAO.register(user1); %>
 
  <!-- Page Title -->
  <div class="page-header" style= "font-family: 'Lilita One', cursive;";>

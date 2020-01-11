@@ -51,22 +51,29 @@
 				<h1 style="color:#00004d"> <p> Choose your League</h1>
 			</div>
 
+			<form class="form-horizontal" id="form1" name="form1" method="post" action="chooseleagueController.jsp">
 			<div class="form-group">
 				<select id="leaguename" name="leaguename" class="form-control" required style="border-radius: 300px; border: 2px #00004d; padding: 20px; width: 210px; height: 12px" >
 				<option selected disabled style= "font-family: 'Montserrat', sans-serif;"> <h4 style="color:#00004d">Choose your league</option>
 					
 					<% for (League league: leagues) { %>
 					
-							<option style= "font-family: 'Montserrat', sans-serif;"> <h4 style="color:#00004d" value=" <%=league.getName() %>"> <%=league.getName() %> </option>
-						    <% League league1 = league.getByName(league.getName()); %>
+							<option style= "font-family: 'Montserrat', sans-serif', 'color:blue';"> <h4 value=" <%=league.getName() %>"> <%=league.getName() %> </option>
+						   
 					<% } %>
 					
 				</select>
 			</div>
+		
+	  </div>
+	  
+	   <div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-success" style= "font-family: 'Montserrat', sans-serif;">Save</button>
 		</div>
-		
-		<% session.setAttribute ("league", league1);%>
-		
+	</div>
+	  
+</form>
 		<!-- /container -->
 		
 				<script src="js/jquery.min.js"></script>

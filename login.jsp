@@ -3,6 +3,7 @@
 
 <%@ page import="league.*, java.util.List" %>
 
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -51,6 +52,11 @@
 					<h1 style="color:#00004d"> FootClub</h1>
 				</div>
 			</div>
+			
+			<% if (request.getAttribute("message") != null) { %>
+			
+				<div class="alert alert-danger text-center" role=alert><%=(String)request.getAttribute("message") %> </div>
+			<% } %>
 			
 			<br>
 			<br>

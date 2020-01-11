@@ -7,7 +7,7 @@ import java.sql.*;
 
 
 // *
-// * @author ������� ������ 8170117
+// * @author SIMITZI IOANNA 8170117
 // *
 // *
 
@@ -33,19 +33,21 @@ public class UserDAO {
 
 					rs = stmt.executeQuery();
 
-					if ( rs.next() ) {
+					if ( !rs.next() ) {
 
-						 user = new User(rs.getString("name"), rs.getString("surname"), rs.getString("mail"), rs.getString("username"), rs.getString("pswd"), rs.getString("phone"), rs.getBoolean("canReferee"));
+						throw new Exception("Wrong username or password");
 					}
+
+					user = new User(rs.getString("name"), rs.getString("surname"), rs.getString("mail"), rs.getString("username"), rs.getString("pswd"), rs.getString("phone"), rs.getBoolean("canReferee"), rs.getInt("league_id"));
+
 					rs.close();
 					stmt.close();
-
 
 					return user;
 
 					} catch (Exception e) {
 
-						throw new Exception("Wrong username or password:" + e.getMessage());
+						throw new Exception(e.getMessage());
 
 					} finally {
 
@@ -60,8 +62,8 @@ public class UserDAO {
 			Connection con = null;
 			DatabaseAccess db = new DatabaseAccess ();
 			String insertNewUserSQL = "INSERT INTO user "
-					+ " ( name, surname, pswd, mail, phone, username) "
-					+ " VALUES (?, ?, ?, ?, ?, ?);";
+					+ " ( name, surname, pswd, mail, phone, league_id, username ) "
+					+ " VALUES (?, ?, ?, ?, ?, ?, ?);";
 
 			try {
 
@@ -71,10 +73,11 @@ public class UserDAO {
 
 					stmt.setString(1, user.getName());
 					stmt.setString(2, user.getSurname());
-					stmt.setString(3, user.getEmail());
-					stmt.setString(4, user.getPassword());
-					stmt.setString(5, user.getUsername());
-					stmt.setString(6, user.getPhone());
+					stmt.setString(3, user.getPassword());
+					stmt.setString(4, user.getEmail());
+					stmt.setString(5, user.getPhone());
+					stmt.setInt(6, user.getLeagueid());
+					stmt.setString(7, user.getUsername());
 
 					stmt.executeUpdate();
 					stmt.close();

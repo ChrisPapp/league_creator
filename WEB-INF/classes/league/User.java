@@ -18,10 +18,10 @@ public class User {
 	private String password;
 	private String phone;
 	private boolean canReferee;
-	private League league;
+	private int leagueid;
 
 
-	public User(String name, String surname, String email, String username, String password, String phone, boolean canReferee, League league) {
+	public User(String name, String surname, String email, String username, String password, String phone, boolean canReferee, int leagueid) {
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
@@ -29,7 +29,7 @@ public class User {
 		this.password = password;
 		this.phone = phone;
 		this.canReferee = canReferee;
-		this.league = league;
+		this.leagueid = leagueid;
 	}
 
 
@@ -111,12 +111,12 @@ public class User {
 		return this.id;
 	}
 
-	public League getLeague() {
-		return league;
+	public int getLeagueid() {
+		return leagueid;
 		}
 
-	public void setLeague(League league) {
-		this.league = league;
+	public void setLeagueid(int leagueid) {
+		this.leagueid = leagueid;
 	}
 
 	@Override
