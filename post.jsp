@@ -6,7 +6,7 @@
 <html lang="en">
   	<head>
     	<%@ include file="LeagueHeadDefaults.jsp" %>
-         <link rel="stylesheet" type="text/css" href="css/post.css">
+        <link rel="stylesheet" type="text/css" href="css/post.css">
   	</head>
   	<body>
   		<%@ include file="navbar.jsp" %>

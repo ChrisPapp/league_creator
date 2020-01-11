@@ -1,16 +1,54 @@
-body {
-	
-	background: url("../images/background.jpg");
-	background-size: 100%;
-	background-repeat: no-repeat;
-	padding: 2px;
-	left: 0;
-	height: 100%;
-	width: 100%;
+.header {
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+@media all and (orientation:landscape) {
+    body {
+        background: url("../images/background.jpg");
+    }
+    .header {
+        height: 400px;
+    }
+}
+
+@media all and (orientation:portrait) {
+    body {
+        background: url("../images/portraitbg.jfif");
+    }
+    .header {
+        height: 800px;
+    }
+    h1 {
+        color: blue;
+        font-size: 40px;
+    }
+}
 
 h2 {
-	color: white;
-	text-align: center;
+    color: white;
+    text-align: center;
+}
+
+body {
+    background-size: 100%;
+    background-repeat: no-repeat;
+    padding: 2px;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.homeTitle {
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(199, 39, 39);
+}
+
+#push {
+    float: right;
+    font-size: 20px;
+    color: rgb(77, 77, 231)
 }
