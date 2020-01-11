@@ -99,8 +99,42 @@ public class UserDAO {
 
 		}
 
-
-
 	}//end of register
 
+	public void insertleague(User user, League league) throws Exception {
+
+		Connection con = null;
+		DatabaseAccess db = new DatabaseAccess();
+		String SQLQuery = "	UPDATE user SET league_id=? WHERE username=? ";
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+	    User user1 = null;
+
+		try {
+
+			con = db.getConnection();
+
+			con.prepareStatement(SQLQuery);
+
+			stmt.setInt(1, league.getId());
+			stmt.setString(2, user.getUsername());
+
+			stmt.executeUpdate();
+
+			rs.close();
+			stmt.close();
+
+
+			} catch (Exception e) {
+
+			throw new Exception("User not found: " + e.getMessage());
+
+
+			} finally {
+
+				if(con != null)
+					con.close();
+
+		}
+	}
 } //End of class

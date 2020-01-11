@@ -169,4 +169,5 @@ public class League {
 	public void setId(int league_id) {
 		this.league_id = league_id;
 	}
+
 }

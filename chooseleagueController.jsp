@@ -64,77 +64,51 @@
 		<!-- /container -->
 
 <%
- String name = request.getParameter("Name");
+ String leaguechoice = request.getParameter("leaguename");
 
- String surname = request.getParameter("Surname");
+ if (session.getAttribute("user1") == null) {
+	 
+%>
 
- String email = request.getParameter("Email");
-
- String username = request.getParameter("Username");
-
- String password = request.getParameter("Password");
-
- String confirm = request.getParameter("Confirm");
-
- String answer = request.getParameter("Answer");
- 
- String phone = request.getParameter("Phone");
-
- if ( confirm.equals(password) ){ %>
-
+	<jsp:forward page ="login.jsp"></jsp:forward>
 	
-  <% User user = new User(name, surname, email, username, password, phone, false); %>
-	
-  <% UserDAO userDAO = new UserDAO(); %>
-  <% userDAO.register(user); %>
+ <% } else {
+	 
+	 User user = (User) session.getAttribute("user1");
+%>
+	 
+<%
 
- <!-- Page Title -->
- <div class="page-header" style= "font-family: 'Lilita One', cursive;";>
+ if (session.getAttribute("league1") == null) {
+	 
+%>
+
+	<jsp:forward page ="chooseleague.jsp"></jsp:forward>
+	
+ <% } else {
+	 
+	 League league = (League) session.getAttribute("league1");
+	 
+%>
+	 
+	 
+	 
+<div class="page-header" style= "font-family: 'Lilita One', cursive;";>
  <h1> <p> Registration done! </h1>
  </div>
-	
- <p class="bg-success" style= "font-family: 'Lilita One', cursive;";>This is your data </p>
-    
-    <b>Name: </b><%= name %> <br>
-    <b>Surname: </b><%= surname %> <br>
-    <b>Email: </b><%= email %> <br>
-    <b>Username: </b><%= username %> <br>
-	<b>Phone: </b><%= phone %> <br>
-	
-  <% }else{  %>
-  	 
-  	  <!-- Page Title -->
-	  <div class="page-header" style= "font-family: 'Lilita One', cursive;";>
-	  <h1> <p> Sorry! Registration form has errors </h1>
-	  </div>
-  	
-  	 <ol>
-		<div class="alert alert-danger" role="alert">
-  	 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
-  	   
-			<% if (password != confirm) {%>
-  	   
-				<li> Password and confirm do not match </li>
-  	      <%}%>
-  	   
-		</div>
-     </ol>
-    
-    <% } %>
-	
-    <a class="btn btn-info" href="register.html" role="button" style= "font-family: 'Lilita One', cursive;";>Back to the form</a>
-  </form>
-  
- </div>
-
-
-		<!-- =================== Place all javascript at the end of the document so the pages load faster =================== -->
-		<!-- jQuery library -->
-		<script src="js/jquery.min.js"></script>
-		<!-- Bootstrap core JavaScript -->
-		<script	src="js/bootstrap.min.js"></script>
-
-
-</body>
-</html>
