@@ -3,7 +3,7 @@ package league;
 import database.DatabaseAccess;
 import java.util.ArrayList;
 import java.sql.*;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public class League {
 
@@ -141,7 +141,11 @@ public class League {
             stmt.setInt(1, this.getId());
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				postList.add(new Post(rs.getInt("idpost"), rs.getString("title"), rs.getString("content"), new User(1, "Chris", "Pappas", "chrispappas99@yahoo.gr", "chrispappas", "1234", true), LocalTime.now()));
+				java.sql.Timestamp ts = rs.getObject("date", java.sql.Timestamp.class);
+                LocalDateTime dateTime = ts.toLocalDateTime();
+                User user = new User("Chris", "Pappas", "chrispappas99@yahoo.gr", "chrispappas", "1234", "6969696969", true);
+				Post post = new Post(rs.getInt("idpost"), rs.getString("title"), rs.getString("content"), user, dateTime);
+				postList.add(post);
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());

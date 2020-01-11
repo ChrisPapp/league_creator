@@ -1,9 +1,12 @@
 package league;
 
-import java.time.LocalTime;
 import database.DatabaseAccess;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 
 public class Post {
 
@@ -11,9 +14,9 @@ public class Post {
     private String title;
     private String content;
     private User poster;
-    private LocalTime time;
+    private LocalDateTime time;
 
-    public Post(Integer id, String title, String content, User poster, LocalTime time) {
+    public Post(Integer id, String title, String content, User poster, LocalDateTime time) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -22,20 +25,22 @@ public class Post {
     }
 
     public static Post getById(int postId, int leagueId) {
-		Post post = null;
+        Post post = null;
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
 			con = DatabaseAccess.getConnection();
-			String query = "SELECT * FROM post JOIN " + DatabaseAccess.getDatabaseName() + "user u ON post.poster_id = u.iduser WHERE idpost = ? AND u.league_id = ?";
+			String query = "SELECT * FROM post JOIN " + DatabaseAccess.getDatabaseName() + ".user u ON post.poster_id = u.iduser WHERE idpost = ? AND u.league_id = ?";
 			stmt = con.prepareStatement(query);
             stmt.setInt(1, postId);
             stmt.setInt(2, leagueId);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-                LocalTime time = (LocalTime) rs.getObject("date");
-				post = new Post(rs.getInt("idpost"), rs.getString("title"), rs.getString("content"), new User(1, "Chris", "Pappas", "chrispappas99@yahoo.gr", "chrispappas", "1234", true), time);
+                java.sql.Timestamp ts = rs.getObject("date", java.sql.Timestamp.class);
+                LocalDateTime dateTime = ts.toLocalDateTime();
+                User user = new User("Chris", "Pappas", "chrispappas99@yahoo.gr", "chrispappas", "1234", "6969696969", true);
+				post = new Post(rs.getInt("idpost"), rs.getString("title"), rs.getString("content"), user, dateTime);
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -52,8 +57,8 @@ public class Post {
 				con.close();
 			} catch (Exception e) {
 				/* ignored */ }
-			return post;
-		}
+            }
+		return post;
     }
 
     public Integer getId() {
@@ -88,12 +93,15 @@ public class Post {
         this.poster = poster;
     }
 
-    public LocalTime getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
     
+    public String getDateString() {
+        return "" + time.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault()) + " " + time.format(DateTimeFormatter.ofPattern("d MMM YYYY hh:mm").withLocale(Locale.getDefault()));
+    }
 }
