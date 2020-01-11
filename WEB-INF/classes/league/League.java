@@ -129,16 +129,22 @@ public class League {
 	}
 
 	// Get League Posts ordered by date
-	public ArrayList<Post> getPosts() {
+	public ArrayList<Post> getPosts(int limit) {
 		Connection con = null;
 		PreparedStatement stmt = null;
         ResultSet rs = null;
         ArrayList<Post> postList = new ArrayList<Post>();
 		try {
 			con = DatabaseAccess.getConnection();
-			String query = "SELECT * FROM post JOIN " + DatabaseAccess.getDatabaseName() + ".user u ON post.poster_id = u.iduser WHERE u.league_id = ?";
+			String query = "SELECT * FROM post JOIN " + DatabaseAccess.getDatabaseName() + ".user u ON post.poster_id = u.iduser WHERE u.league_id = ? ";
+			if (limit > 0) {
+				query += "LIMIT ?";
+			}
 			stmt = con.prepareStatement(query);
-            stmt.setInt(1, this.getId());
+			stmt.setInt(1, this.getId());
+			if (limit > 0) {
+				stmt.setInt(2, limit);
+			}
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				java.sql.Timestamp ts = rs.getObject("date", java.sql.Timestamp.class);

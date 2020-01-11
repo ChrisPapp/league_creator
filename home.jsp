@@ -17,8 +17,8 @@
 
 	<%@ include file="navbar.jsp" %>
 
-	<% 	List<Post> postList = currentLeague.getPosts();
-		final int POST_LIMIT = 3;
+	<% 	final int POST_LIMIT = 3;
+		List<Post> postList = currentLeague.getPosts(POST_LIMIT);
 	%>
 	
 	<div class="header" style= "font-family: 'Lilita One', cursive;";>
@@ -33,10 +33,10 @@
 		</h2>
 		<div id="cc-homepage-announcements" style="height: 200px; overflow-x: hidden; overflow-y: auto; padding: 6px; text-align: left;">
 			<% 
-			 for (int i = 0; i < postList.size() && i < POST_LIMIT; i++) { %>
+			 for (int i = 0; i < postList.size(); i++) { %>
                 <li><a href="post.jsp?post=<%= "" + postList.get(i).getId() %>" class="homeTitle"><%= postList.get(i).getTitle() %></a></li>
             <%} %>
-			<% if (postList.size() > POST_LIMIT) { %><li id="push"><a href="allPosts.jsp">More Posts</a></li> <% } %>
+			<% if (postList.size() >= POST_LIMIT) { %><li id="push"><a href="allPosts.jsp">More Posts</a></li> <% } %>
 		</div>
 	</div>
 	

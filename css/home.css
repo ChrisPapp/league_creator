@@ -16,7 +16,7 @@
 
 @media all and (orientation:portrait) {
     body {
-        background: url("../images/portraitbg.jfif");
+        background: url("../images/portraitbg.jpg");
     }
     .header {
         height: 800px;
