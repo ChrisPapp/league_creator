@@ -1,7 +1,7 @@
 
 <!-- @author ΣΙΜΙΤΖΗ ΙΩΑΝΝΑ 8170117 -->
 <%@ page import="league.*, java.util.List" %>
-<%@ include file="setLeague.jsp"%>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -125,9 +125,6 @@
 <br>
 <br>
 <br>
-
-		<!-- =================== Place all javascript at the end of the document so the pages load faster =================== -->
-		<!-- jQuery library -->
 		<script src="js/jquery.min.js"></script>
 		<!-- Bootstrap core JavaScript -->
 		<script	src="js/bootstrap.min.js"></script>

@@ -18,9 +18,10 @@ public class User {
 	private String password;
 	private String phone;
 	private boolean canReferee;
+	private League league;
 
 
-	public User(String name, String surname, String email, String username, String password, String phone, boolean canReferee) {
+	public User(String name, String surname, String email, String username, String password, String phone, boolean canReferee, League league) {
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
@@ -28,19 +29,9 @@ public class User {
 		this.password = password;
 		this.phone = phone;
 		this.canReferee = canReferee;
+		this.league = league;
 	}
 
-
-	public String getUsername() {
-		return username;
-	}
-
-	/**
-	 * @param username the username to set
-	 */
-	public void setUsername(String username) {
-		this.username = username;
-	}
 
 	/**
 	 * @return the name
@@ -83,6 +74,14 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 	/**
 	 * @return the password
 	 */
@@ -110,6 +109,14 @@ public class User {
 
 	public int getId(){
 		return this.id;
+	}
+
+	public League getLeague() {
+		return league;
+		}
+
+	public void setLeague(League league) {
+		this.league = league;
 	}
 
 	@Override
