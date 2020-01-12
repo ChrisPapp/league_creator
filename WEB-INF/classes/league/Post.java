@@ -39,7 +39,10 @@ public class Post {
 			while (rs.next()) {
                 java.sql.Timestamp ts = rs.getObject("date", java.sql.Timestamp.class);
                 LocalDateTime dateTime = ts.toLocalDateTime();
-                User user = new User("Chris", "Pappas", "chrispappas99@yahoo.gr", "chrispappas", "1234", "6969696969", true, 2);
+                User user = new User(rs.getInt("iduser"), rs.getString("name"), rs.getString("surname"),
+                rs.getString("mail"), rs.getString("username"), rs.getString("phone"),
+                rs.getString("profile_pic"), rs.getBoolean("canReferee"), rs.getBoolean("canPost"),
+                rs.getBoolean("is_admin"), rs.getInt("league_id"));
 				post = new Post(rs.getInt("idpost"), rs.getString("title"), rs.getString("content"), user, dateTime);
 			}
 		} catch (SQLException e) {
