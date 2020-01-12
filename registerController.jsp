@@ -79,14 +79,16 @@
  String answer = request.getParameter("Answer");
  
  String phone = request.getParameter("Phone");
+ 
+ String profilePic = null;
 
  if ( confirm.equals(password) ){ %>
 
 	
-  <% User user1 = new User(name, surname, email, username, password, phone, false, 2); %>
+  <% User user1 = new User(name, surname, email, username, phone, profilePic, false, false, false, 2); %>
 	
   <% UserDAO userDAO = new UserDAO(); %>
-  <% userDAO.register(user1); %>
+  <% userDAO.register(user1, password); %>
 
  <!-- Page Title -->
  <div class="page-header" style= "font-family: 'Lilita One', cursive;";>
@@ -100,6 +102,8 @@
     <b>Email: </b><%= email %> <br>
     <b>Username: </b><%= username %> <br>
 	<b>Phone: </b><%= phone %> <br>
+	
+	<% session.setAttribute("user", user1); %>
 	
   <% }else{  %>
   	 

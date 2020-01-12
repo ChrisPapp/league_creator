@@ -38,7 +38,10 @@ public class UserDAO {
 						throw new Exception("Wrong username or password");
 					}
 
-					user = new User(rs.getString("name"), rs.getString("surname"), rs.getString("mail"), rs.getString("username"), rs.getString("pswd"), rs.getString("phone"), rs.getBoolean("canReferee"), rs.getInt("league_id"));
+					user = new User(rs.getInt("iduser"), rs.getString("name"), rs.getString("surname"),
+						rs.getString("mail"), rs.getString("username"), rs.getString("phone"),
+						rs.getString("profile_pic"), rs.getBoolean("canReferee"), rs.getBoolean("canPost"),
+						rs.getBoolean("is_admin"), rs.getInt("league_id"));
 
 					rs.close();
 					stmt.close();
@@ -57,7 +60,7 @@ public class UserDAO {
 	} //End of authenticate
 
 
-	public void register(User user) throws Exception {
+	public void register(User user, String pass) throws Exception {
 
 			Connection con = null;
 			DatabaseAccess db = new DatabaseAccess ();
@@ -73,7 +76,7 @@ public class UserDAO {
 
 					stmt.setString(1, user.getName());
 					stmt.setString(2, user.getSurname());
-					stmt.setString(3, user.getPassword());
+					stmt.setString(3, pass);
 					stmt.setString(4, user.getEmail());
 					stmt.setString(5, user.getPhone());
 					stmt.setInt(6, user.getLeagueid());

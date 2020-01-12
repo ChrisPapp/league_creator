@@ -41,7 +41,7 @@
 	
 	   userDAO.authenticate( username, password);
 	   User user = userDAO.authenticate(username,password);
-	   session.setAttribute("user1", user); %>
+	   session.setAttribute("user", user); %>
 	   <jsp:forward page="profile.jsp"/>
 			
 	    <%

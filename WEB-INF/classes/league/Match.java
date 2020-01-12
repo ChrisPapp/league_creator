@@ -82,7 +82,12 @@ public class Match {
                 }
                 Stats awayStats = new Stats(goals, yellow, red);
                 java.sql.Timestamp ts = rs.getObject(4, java.sql.Timestamp.class);
-                LocalDateTime dateTime = ts.toLocalDateTime();
+                LocalDateTime dateTime;
+                if (ts != null) {
+                    dateTime = ts.toLocalDateTime();
+                } else {
+                    dateTime = null;
+                }
 				match = new Match(rs.getInt(1), home, homeStats, away, awayStats, rs.getString(2)!= null && rs.getString(3) != null ? rs.getString(2) + " " + rs.getString(3) : "", dateTime);
 			}
 		} catch (SQLException e) {
@@ -119,8 +124,12 @@ public class Match {
             "WHERE idmatch = ?";    
             stmt = con.prepareStatement(queryMatch);
             stmt.setObject(1, refId);
-            java.sql.Timestamp ts = java.sql.Timestamp.valueOf(this.matchDate);
-            stmt.setTimestamp(2, ts);
+            if (this.matchDate == null) {
+                stmt.setNull(2, java.sql.Types.TIMESTAMP);
+            } else {
+                java.sql.Timestamp ts = java.sql.Timestamp.valueOf(this.matchDate);
+                stmt.setTimestamp(2, ts);
+            }
             stmt.setInt(3, this.matchId);
             stmt.executeUpdate();
             String queryStats = "UPDATE " + DatabaseAccess.getDatabaseName() + ".stats SET " +
@@ -210,8 +219,8 @@ public class Match {
 
     public String getDateString() {
         if (this.matchDate == null)
-            return null;
-        return "" + matchDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault()) + " " + matchDate.format(DateTimeFormatter.ofPattern("d MMM YYYY HH:mm").withLocale(Locale.getDefault()));
+            return "No date set";
+        return "Date: " + matchDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault()) + " " + matchDate.format(DateTimeFormatter.ofPattern("d MMM YYYY HH:mm").withLocale(Locale.getDefault()));
     }
     
 }

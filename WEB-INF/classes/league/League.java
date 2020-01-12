@@ -132,7 +132,8 @@ public class League {
 	public ArrayList<Post> getPosts(int limit) {
 		Connection con = null;
 		PreparedStatement stmt = null;
-        ResultSet rs = null;
+		ResultSet rs = null;
+		User user = null;
         ArrayList<Post> postList = new ArrayList<Post>();
 		try {
 			con = DatabaseAccess.getConnection();
@@ -147,13 +148,18 @@ public class League {
 			}
 			rs = stmt.executeQuery();
 			while (rs.next()) {
+				user = new User(rs.getInt("iduser"), rs.getString("name"), rs.getString("surname"),
+				rs.getString("mail"), rs.getString("username"), rs.getString("phone"),
+				rs.getString("profile_pic"), rs.getBoolean("canReferee"), rs.getBoolean("canPost"),
+				rs.getBoolean("is_admin"), rs.getInt("league_id"));
 				java.sql.Timestamp ts = rs.getObject("date", java.sql.Timestamp.class);
                 LocalDateTime dateTime = ts.toLocalDateTime();
-                User user = new User("Chris", "Pappas", "chrispappas99@yahoo.gr", "chrispappas", "1234", "6969696969", true, this.league_id);
 				Post post = new Post(rs.getInt("idpost"), rs.getString("title"), rs.getString("content"), user, dateTime);
 				postList.add(post);
 			}
 		} catch (SQLException e) {
+			Post post = new Post(1, e.getMessage(), e.getStackTrace().toString(), user, LocalDateTime.now());
+			postList.add(post);
 			System.out.println(e.getMessage());
 		} finally {
 			try {
