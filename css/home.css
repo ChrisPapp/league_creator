@@ -10,7 +10,7 @@
         background: url("../images/background.jpg");
     }
     .header {
-        height: 400px;
+        height: 370px;
     }
 }
 
@@ -35,7 +35,6 @@ h2 {
 body {
     background-size: 100%;
     background-repeat: no-repeat;
-    padding: 2px;
     left: 0;
     height: 100%;
     width: 100%;

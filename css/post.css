@@ -1,58 +1,79 @@
-    @media all and (orientation:landscape) {
-        body {
-            background: url("../images/background.jpg");
-        }
+@media all and (orientation:landscape) {
+    .bg-image {
+        background: url("../images/background.jpg");
     }
-    
-    @media all and (orientation:portrait) {
-        body {
-            background: url("../images/portraitbg.jpg");
-        }
+}
+
+@media all and (orientation:portrait) {
+    .bg-image {
+        background: url("../images/portraitbg.jpg");
     }
-    
-    body {
-        background-size: 100%;
-        background-repeat: no-repeat;
-        padding: 2px;
-        left: 0;
-        height: 100%;
-        width: 100%;
-    }
-    
-    article {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding-left: 100px;
-        padding-right: 100px;
-    }
-    
-    #postTitle {
-        font-size: 50px;
-        text-align: center;
-        color: white;
-    }
-    
-    #postInfo {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        width: 100%;
-    }
-    
-    #poster {
-        color: blue;
-        font-size: 15px;
-        text-decoration: underline;
-    }
-    
-    #date {
-        font-size: 20px;
-    }
-    
-    #postContent {
-        margin-top: 60px;
-        font-size: 23px;
-        color: ghostwhite;
-    }
+}
+
+body {
+    height: 100%;
+}
+
+.bg-image {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    top: 0;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+}
+
+.content {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+article {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+#postTitle {
+    font-size: 50px;
+    text-align: center;
+    color: white;
+}
+
+#postInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+}
+
+#poster {
+    color: blue;
+    font-size: 15px;
+    text-decoration: underline;
+}
+
+#date {
+    font-size: 20px;
+}
+
+#postContent {
+    margin-top: 60px;
+    font-size: 23px;
+    color: ghostwhite;
+}

@@ -38,6 +38,12 @@ public class User {
 		this.leagueid = leagueid;
 	}
 
+	public User(int id, String name, String surname) {
+		this.id = id;
+		this.name = name;
+		this.surname = surname;
+	}
+
 	public static User getById(int id) {
 		User user = null;
 		Connection con = null;
@@ -175,6 +181,18 @@ public class User {
 
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+
+	public String getFullName() {
+		if (name == null && surname == null) {
+			return "Anonymous";
+		} else if (name == null) {
+			return this.surname;
+		} else if (surname == null) {
+			return this.name;
+		} else {
+			return this.name + " " + this.surname;
+		}
 	}
 
 } // End of class

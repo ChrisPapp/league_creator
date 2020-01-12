@@ -4,8 +4,8 @@
 <%-- begin html --%>
 <!DOCTYPE html>
 <html lang="en">
-  	<head>
-    	<%@ include file="LeagueHeadDefaults.jsp" %>
+  	<head> 
+      <%@ include file="LeagueHeadDefaults.jsp" %>
       <!-- Import the base grid styles -->
       <link rel="stylesheet" type="text/css" href="css/grid.css">
       <!-- Match specific styles -->
@@ -83,8 +83,8 @@
     </div>
 
     <div id="matchInfo">
-      <div class=clickable id="date">
-        <p>Referee: <span id="refereeName"><%=currentMatch.getRefereeName()%></span></p>
+      <div>
+        <p>Referee: <% if (currentMatch.getReferee() != null) { %><a href="profile.jsp?user=<%=currentMatch.getReferee().getId()%>"><span id="refereeName"><%=currentMatch.getReferee().getFullName()%></span></a> <% } %></p>
       </div>
       <div class=clickable id="date">
         <p><%=currentMatch.getDateString()%></p>
@@ -93,7 +93,7 @@
 
     <% if (currentUser != null && currentUser.canReferee()) { %>
       <div class="submitContainer">
-        	<button class="btn btn-lg btn-primary btn-success" type="submit" style= "font-family: 'Lilita One', cursive;";>Update match</button>
+        	<button class="defButton" type="submit">Update match</button>
       </div>
       </form>	
       <%-- Code for clicking and changing to input box --%>

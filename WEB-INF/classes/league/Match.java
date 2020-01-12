@@ -16,16 +16,16 @@ public class Match {
     private Stats homeStats;
     private final Team away;
     private Stats awayStats;
-    private String refereeName;
+    private User referee;
     private LocalDateTime matchDate;
 
-    public Match(int id, Team home, Stats homeStats, Team away, Stats awayStats, String refName, LocalDateTime date) {
+    public Match(int id, Team home, Stats homeStats, Team away, Stats awayStats, User referee, LocalDateTime date) {
         this.matchId = id;
         this.home = home;
         this.homeStats = homeStats;
         this.away = away;
         this.awayStats = awayStats;
-        this.refereeName = refName;
+        this.referee = referee;
         this.matchDate = date;
     }
 
@@ -35,10 +35,11 @@ public class Match {
 		Match match = null;
 		Connection con = null;
 		PreparedStatement stmt = null;
-		ResultSet rs = null;
+        ResultSet rs = null;
+        User ref = null;
 		try {
 			con = DatabaseAccess.getConnection();
-			String query = "SELECT m.idmatch, referee.name, referee.surname, m.date, home.*, homeStats.goals_scored, homeStats.yellowcards, homeStats.redcards, away.*, awayStats.goals_scored, awayStats.yellowcards, awayStats.redcards " +
+			String query = "SELECT m.idmatch, referee.name, referee.surname, m.date, home.*, homeStats.goals_scored, homeStats.yellowcards, homeStats.redcards, away.*, awayStats.goals_scored, awayStats.yellowcards, awayStats.redcards, referee.iduser " +
             "FROM ismgroup62.match m " +
             "JOIN team home ON m.team_home = home.idteam " +
             "JOIN stats homeStats " +
@@ -50,7 +51,7 @@ public class Match {
             "WHERE m.idmatch = ?;";
 			stmt = con.prepareStatement(query);
 			stmt.setInt(1, id);
-			rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
 			while (rs.next()) {
                 Integer goals, yellow, red;
                 Team home = new Team(rs.getInt(5), rs.getInt(6), rs.getString(7), rs.getString(8));
@@ -88,7 +89,11 @@ public class Match {
                 } else {
                     dateTime = null;
                 }
-				match = new Match(rs.getInt(1), home, homeStats, away, awayStats, rs.getString(2)!= null && rs.getString(3) != null ? rs.getString(2) + " " + rs.getString(3) : "", dateTime);
+                int refId = rs.getInt("iduser");
+                if (!rs.wasNull()) {
+                    ref = new User(refId, rs.getString(2), rs.getString(3));
+                }
+				match = new Match(rs.getInt(1), home, homeStats, away, awayStats, ref, dateTime);
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -201,12 +206,9 @@ public class Match {
         this.awayStats = awayStats;
     }
 
-    public String getRefereeName() {
-        return refereeName;
-    }
-
-    public void setRefereeName(String refereeName) {
-        this.refereeName = refereeName;
+    public User getReferee()
+    {
+        return this.referee;
     }
 
     public LocalDateTime getMatchDate() {

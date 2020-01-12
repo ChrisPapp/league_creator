@@ -20,3 +20,30 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.defButton {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    border: 1px solid transparent;
+    font-family: 'Lilita One', cursive;
+    background-image: linear-gradient(to bottom, #5cb85c 0, #419641 100%);
+    background-repeat: repeat-x;
+    color: white;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .2);
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 6px;
+}
+
+.defButton:focus,
+.defButton:hover {
+    background-color: #419641;
+    background-position: 0 -15px;
+}

@@ -9,7 +9,6 @@
         <link rel="stylesheet" type="text/css" href="css/post.css">
   	</head>
   	<body>
-  		<%@ include file="navbar.jsp" %>
         <%  Integer postId = null;
           String postIdParam = request.getParameter("post");
           Post currentPost = null;
@@ -25,16 +24,19 @@
         %>
             <jsp:forward page="home.jsp"/> 
         <% } %>
-
-        <article>
-            <h1 id="postTitle"><%= currentPost.getTitle() %></h1>
-            <div id="postInfo">
-                <a href="profile.jsp?user=<%=currentPost.getPoster().getId()%>" id="poster">Author: <%=currentPost.getPoster().getName() + " " + currentPost.getPoster().getSurname() %></a>
-                <div id="date"><%=currentPost.getDateString()%></div>
-            </div>
-            <div id="postContent">
-                <p><%= currentPost.getContent() %></p>
-            </div>
-        </article>
+        <%@ include file="navbar.jsp" %>
+        <div class="bg-image"></div>
+        <div class="content"> 
+          <article>
+              <h1 id="postTitle"><%= currentPost.getTitle() %></h1>
+              <div id="postInfo">
+                  <a href="profile.jsp?user=<%=currentPost.getPoster().getId()%>" id="poster">Author: <%=currentPost.getPoster().getFullName()%></a>
+                  <div id="date"><%=currentPost.getDateString()%></div>
+              </div>
+              <div id="postContent">
+                  <p><%= currentPost.getContent() %></p>
+              </div>
+          </article>
+        </div>
   </body>
 </html>>
