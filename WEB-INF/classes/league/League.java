@@ -137,7 +137,7 @@ public class League {
         ArrayList<Post> postList = new ArrayList<Post>();
 		try {
 			con = DatabaseAccess.getConnection();
-			String query = "SELECT * FROM post JOIN " + DatabaseAccess.getDatabaseName() + ".user u ON post.poster_id = u.iduser WHERE u.league_id = ? ";
+			String query = "SELECT * FROM post JOIN " + DatabaseAccess.getDatabaseName() + ".user u ON post.poster_id = u.iduser LEFT JOIN team ON u.team_id = team.idteam WHERE u.league_id = ? ";
 			if (userId > 0) {
 				query+= "AND u.iduser = ? ";
 			}
@@ -157,10 +157,7 @@ public class League {
 			}
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				user = new User(rs.getInt("iduser"), rs.getString("name"), rs.getString("surname"),
-				rs.getString("mail"), rs.getString("username"), rs.getString("phone"),
-				rs.getString("profile_pic"), rs.getBoolean("canReferee"), rs.getBoolean("canPost"),
-				rs.getBoolean("is_admin"), rs.getInt("league_id"));
+				user = User.constructUser(rs);
 				java.sql.Timestamp ts = rs.getObject("date", java.sql.Timestamp.class);
                 LocalDateTime dateTime = ts.toLocalDateTime();
 				Post post = new Post(rs.getInt("idpost"), rs.getString("title"), rs.getString("content"), user, dateTime);

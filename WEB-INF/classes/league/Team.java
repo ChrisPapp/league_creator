@@ -3,13 +3,23 @@ package league;
 public class Team {
 	private int id;
 	private String name, logo;
-	private League leagueId;
+	private int leagueId;
+	private int leaderId;
 
-	public Team(int id, League leagueId, String name, String logoPath) {
+	public Team(int id, int leagueId, String name, String logoPath) {
 		this.id = id;
 		this.leagueId = leagueId;
 		this.name = name;
 		this.logo = logoPath;
+		this.leaderId = -1;
+	}
+
+	public Team(int id, int leagueId, String name, String logoPath, int leaderId) {
+		this.id = id;
+		this.leagueId = leagueId;
+		this.name = name;
+		this.logo = logoPath;
+		this.leaderId = leaderId;
 	}
 
 	public String getName() {
@@ -24,8 +34,12 @@ public class Team {
 		return this.id;
 	}
 
-	public League getLeagueId() {
+	public int getLeagueId() {
 		return this.leagueId;
+	}
+
+	public int getLeaderId() {
+		return this.leaderId;
 	}
 
 	public boolean equals(Team other) {

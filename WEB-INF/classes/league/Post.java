@@ -31,7 +31,7 @@ public class Post {
 		ResultSet rs = null;
 		try {
 			con = DatabaseAccess.getConnection();
-			String query = "SELECT * FROM post JOIN " + DatabaseAccess.getDatabaseName() + ".user u ON post.poster_id = u.iduser WHERE idpost = ? AND u.league_id = ?";
+			String query = "SELECT * FROM post JOIN " + DatabaseAccess.getDatabaseName() + ".user u ON post.poster_id = u.iduser LEFT JOIN team ON u.team_id=team.idteam WHERE idpost = ? AND u.league_id = ?";
 			stmt = con.prepareStatement(query);
             stmt.setInt(1, postId);
             stmt.setInt(2, leagueId);
@@ -39,10 +39,7 @@ public class Post {
 			while (rs.next()) {
                 java.sql.Timestamp ts = rs.getObject("date", java.sql.Timestamp.class);
                 LocalDateTime dateTime = ts.toLocalDateTime();
-                User user = new User(rs.getInt("iduser"), rs.getString("name"), rs.getString("surname"),
-                rs.getString("mail"), rs.getString("username"), rs.getString("phone"),
-                rs.getString("profile_pic"), rs.getBoolean("canReferee"), rs.getBoolean("canPost"),
-                rs.getBoolean("is_admin"), rs.getInt("league_id"));
+                User user = User.constructUser(rs);
 				post = new Post(rs.getInt("idpost"), rs.getString("title"), rs.getString("content"), user, dateTime);
 			}
 		} catch (SQLException e) {

@@ -16,6 +16,7 @@
 		String imgSrc;
 		boolean isMyProfile; // We need to show different things to ourselfs and other things to strangers
 		final int ENTRY_LIMIT = 3;
+		List<Result> resultList;
 		if (userParam == null || (currentUser != null && currentUser.getId() == Integer.parseInt(userParam))) {
 			user = currentUser;
 		} else {
@@ -45,6 +46,8 @@
 		<div class="content">
 			<h1 id="title"><%=title%></h1>
 			<div id="container">
+
+
 				<% if (isMyProfile) { %> <form method=POST action="updateUser.jsp"> <% } %>
 				<div class="profileBubble" id="account">
 					<img class="clickable" id="profile_pic" src="<%=imgSrc%>" alt="<%=user.getFullName()%>">
@@ -61,13 +64,53 @@
 					<% } %>
 				</div>
 				<% if (isMyProfile) { %> </form> <% } %>
+
+
 				<div class="profileBubble" id="team">
+					<% if (user.getTeam() == null) { %>
+						<img src="images/team.jpg" alt="No team">
+						<h2>Free Agent</h2>
+
+						<% if (isMyProfile) { %>
+							<button class="defButton" onclick="location.href = 'createTeam.jsp';">Create Team</button>
+						<%} else if (currentUser != null && currentUser.isTeamLeader()){ %>
+							<button class="defButton" onclick="location.href = 'updateUserTeam.jsp?user=<%=user.getId()%>&team=<%=currentUser.getTeam().getId()%>';">Add to your team</button>
+						<%} %>
+					<%} else {%>
+						<img src="<%= user.getTeam().getLogo()%>" alt="<%= user.getTeam().getName()%>">
+						<% if (isMyProfile) { %>
+						<button class="defButton" onclick="location.href = 'updateUserTeam.jsp?user=<%=user.getId()%>';">Leave team</button>
+						<%} %>
+						<h2>Recent matches</h2>
+						<div class="list">
+							<% 	resultList = user.getMatches(false);
+								int totalMatches = 0;
+								for (int i = 0; i < resultList.size(); i++) { 
+									Result result = resultList.get(i);
+									if (result.goalsHome == null || result.goalsAway==null) {
+										continue;
+									}
+									totalMatches++;
+							%>
+								<% if (i < ENTRY_LIMIT) { %> <div class="listItem"> <% } else { %> <div class="listItem toggleTeam" style="display: none;"> <% } %>
+									<a href="match.jsp?match=<%=result.matchId%>" class="link"><%=result.getMatchName()%></a>
+									<p class="listParag"> <%=result.getScore()%> </p>
+								</div>
+							<%	}%>
+							<p class="total">Total matches: <span class="count"><%=totalMatches%></span></p>
+							<% if (resultList.size() > ENTRY_LIMIT) { %>
+								<button class="defButton toggleBtn" id="toggleTeam">More</button>
+							<% } %>
+						</div>
+					<% } %>
 				</div>
+
+
 				<div class="profileBubble" id="referee">
 					<img src="images/refAvatar.jpg" alt="Matches as referee">
 					<h2>Recent matches</h2>
 					<div class="list">
-						<% 	List<Result> resultList = user.getMatchesAsReferee();
+						<% 	resultList = user.getMatches(true);
 							for (int i = 0; i < resultList.size(); i++) { 
 								Result result = resultList.get(i);
 						%>
@@ -82,6 +125,8 @@
 						<% } %>
 					</div>
 				</div>
+
+
 				<div class="profileBubble" id="posts">
 					<img src="images/postIcon.jpg" alt="Recent posts">
 					<h2>Recent Posts</h2>

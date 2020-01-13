@@ -39,7 +39,7 @@ public class Match {
         User ref = null;
 		try {
 			con = DatabaseAccess.getConnection();
-			String query = "SELECT m.idmatch, referee.name, referee.surname, m.date, home.*, homeStats.goals_scored, homeStats.yellowcards, homeStats.redcards, away.*, awayStats.goals_scored, awayStats.yellowcards, awayStats.redcards, referee.iduser " +
+			String query = "SELECT m.idmatch, referee.name, referee.surname, m.date, home.idteam, home.league_id, home.team_name, home.logo_path, homeStats.goals_scored, homeStats.yellowcards, homeStats.redcards, away.idteam, away.league_id, away.team_name, away.logo_path, awayStats.goals_scored, awayStats.yellowcards, awayStats.redcards, referee.iduser " +
             "FROM ismgroup62.match m " +
             "JOIN team home ON m.team_home = home.idteam " +
             "JOIN stats homeStats " +

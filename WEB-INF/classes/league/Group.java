@@ -23,7 +23,7 @@ public class Group {
         ResultSet rs = null;
         try {
             con = DatabaseAccess.getConnection();
-            final String query = "SELECT team.idteam, team.league_id, team.name, team.logo_path FROM group_teams INNER JOIN team ON team.idteam = group_teams.team_id WHERE group_id = ?;";
+            final String query = "SELECT team.idteam, team.league_id, team.team_name, team.logo_path FROM group_teams INNER JOIN team ON team.idteam = group_teams.team_id WHERE group_id = ?;";
             stmt = con.prepareStatement(query);
             stmt.setInt(1, this.groupId);
             rs = stmt.executeQuery();
@@ -57,7 +57,7 @@ public class Group {
         ResultSet rs = null;
         try {
             con = DatabaseAccess.getConnection();
-            final String query = "SELECT team.*, sum(teamStats.goals_scored) AS goals_scored, " +
+            final String query = "SELECT team.idteam, team.league_id, team.team_name, team.logo_path, sum(teamStats.goals_scored) AS goals_scored, " +
             "sum(enemyStats.goals_scored) AS goals_against, " +
             "count(case when teamStats.goals_scored > enemyStats.goals_scored then 1 else null end) AS wins, " +
             "count(case when teamStats.goals_scored = enemyStats.goals_scored then 1 else null end) AS draws," +

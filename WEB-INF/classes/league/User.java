@@ -24,9 +24,10 @@ public class User {
 	private boolean canPost;
 	private boolean isAdmin;
 	private int leagueid;
+	private Team team;
 
 	public User(int id, String name, String surname, String email, String username, String phone, String profilePic,
-			boolean canReferee, boolean canPost, boolean isAdmin, int leagueid) {
+			boolean canReferee, boolean canPost, boolean isAdmin, int leagueid, Team team) {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
@@ -39,6 +40,7 @@ public class User {
 		this.canPost = canPost;
 		this.canReferee = canReferee;
 		this.leagueid = leagueid;
+		this.team = team;
 	}
 
 	public User(int id, String name, String surname) {
@@ -54,15 +56,12 @@ public class User {
 		ResultSet rs = null;
 		try {
 			con = DatabaseAccess.getConnection();
-			String query = "SELECT * FROM " + DatabaseAccess.getDatabaseName() + ".user WHERE iduser=?;";
+			String query = "SELECT * FROM " + DatabaseAccess.getDatabaseName() + ".user LEFT JOIN team ON user.team_id=team.idteam WHERE iduser=?;";
 			stmt = con.prepareStatement(query);
 			stmt.setInt(1, id);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				user = new User(rs.getInt("iduser"), rs.getString("name"), rs.getString("surname"),
-						rs.getString("mail"), rs.getString("username"), rs.getString("phone"),
-						rs.getString("profile_pic"), rs.getBoolean("canReferee"), rs.getBoolean("canPost"),
-						rs.getBoolean("is_admin"), rs.getInt("league_id"));
+				user = User.constructUser(rs);
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -81,6 +80,35 @@ public class User {
 				/* ignored */ }
 			return user;
 		}
+	}
+
+	// Creates a User object from a ResultSet. The given ResultSet should be checked for validity.
+	// rs.next should have been called outside this function
+	public static User constructUser(ResultSet rs){
+		Team team;
+		int teamId, leagueId;
+		String name, logoPath;
+		User user = null; 
+		
+		try {
+		teamId = rs.getInt("team_id");
+		if (rs.wasNull()) {
+			team = null;
+		} else {
+			leagueId = rs.getInt("league_id");
+			name = rs.getString("team_name");
+			logoPath = rs.getString("logo_path");
+			team = new Team(teamId, leagueId, name, logoPath);
+		}
+		user = new User(rs.getInt("iduser"), rs.getString("name"), rs.getString("surname"),
+				rs.getString("mail"), rs.getString("username"), rs.getString("phone"),
+				rs.getString("profile_pic"), rs.getBoolean("canReferee"), rs.getBoolean("canPost"),
+				rs.getBoolean("is_admin"), rs.getInt("league_id"), team);
+		} catch (SQLException e){
+
+		}
+		
+		return user;
 	}
 
 	/**
@@ -198,24 +226,33 @@ public class User {
 		}
 	}
 
-	public List<Result> getMatchesAsReferee() {
+	// Return a list with match Results
+	// If referee is True, it will return matches where this user was Referee
+	// If referee is False, it will return matches where this user's Team was playing
+	public List<Result> getMatches(boolean referee) {
 		List<Result> resList = new ArrayList<Result>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            con = DatabaseAccess.getConnection();
+			con = DatabaseAccess.getConnection();
+			String whereClause = referee ? "WHERE m.referee_id = ? " : "WHERE m.team_home = ? OR m.team_away = ? ";
             final String query = 
-            "SELECT m.idmatch, homeStats.goals_scored, awayStats.goals_scored, home.name, away.name " + 
+            "SELECT m.idmatch, homeStats.goals_scored, awayStats.goals_scored, home.team_name, away.team_name " + 
 			"FROM " + DatabaseAccess.getDatabaseName() + ".match m " + 
 			"JOIN stats homeStats ON m.idmatch = homeStats.match_id AND m.team_home = homeStats.team_id " +
 			"JOIN team home ON homeStats.team_id = home.idteam " +
 			"JOIN stats awayStats ON m.idmatch = awayStats.match_id AND m.team_away = awayStats.team_id " +
 			"JOIN team away ON awayStats.team_id = away.idteam " +
-			"WHERE m.referee_id = ? " +
+			whereClause +
 			"ORDER BY date DESC;";
-            stmt = con.prepareStatement(query);
-            stmt.setInt(1, this.getId());
+			stmt = con.prepareStatement(query);
+			if (referee) {
+				stmt.setInt(1, this.getId());
+			} else {
+				stmt.setInt(1, this.getTeam().getId());
+				stmt.setInt(2, this.getTeam().getId());
+			}
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Integer nValue = rs.getInt(1);                      // Notice getInt will return 0 if SQL value was null, therefore we use rs.wasNull
@@ -283,6 +320,47 @@ public class User {
 			} catch (Exception e) {
 				/* ignored */ }
 		}
-    }
+	}
+
+	public void updateTeam(Integer teamId)
+    {
+
+		Connection con = null;
+		PreparedStatement stmt = null;
+        
+		try {
+            con = DatabaseAccess.getConnection();
+            String query = "UPDATE " + DatabaseAccess.getDatabaseName() + ".user SET " +
+            "team_id = ? " + 
+            "WHERE iduser = ?";    
+            stmt = con.prepareStatement(query);
+			if (teamId != null){
+				stmt.setInt(1, teamId);
+			} else {
+				stmt.setNull(1, java.sql.Types.INTEGER);
+			}
+			stmt.setInt(2, this.id);
+            stmt.executeUpdate();
+		} catch (SQLException e) {
+
+		} finally {
+			try {
+				stmt.close();
+			} catch (Exception e) {
+				/* ignored */ }
+			try {
+				con.close();
+			} catch (Exception e) {
+				/* ignored */ }
+		}
+	}
+	
+	public Team getTeam(){
+		return this.team;
+	}
+
+	public boolean isTeamLeader(){
+		return this.team != null && this.team.getId() == this.id;
+	}
 
 } // End of class

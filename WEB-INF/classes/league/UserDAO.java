@@ -18,7 +18,7 @@ public class UserDAO {
 
 			Connection con = null;
 			DatabaseAccess db = new DatabaseAccess();
-			String sqlQuery = "SELECT * FROM user WHERE username=? AND pswd=? ;";
+			String sqlQuery = "SELECT * FROM user LEFT JOIN team ON team_id = team.idteam WHERE username=? AND pswd=? ;";
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 		 	User user = null;
@@ -38,10 +38,7 @@ public class UserDAO {
 						throw new Exception("Wrong username or password");
 					}
 
-					user = new User(rs.getInt("iduser"), rs.getString("name"), rs.getString("surname"),
-						rs.getString("mail"), rs.getString("username"), rs.getString("phone"),
-						rs.getString("profile_pic"), rs.getBoolean("canReferee"), rs.getBoolean("canPost"),
-						rs.getBoolean("is_admin"), rs.getInt("league_id"));
+					user = User.constructUser(rs);
 
 					rs.close();
 					stmt.close();
