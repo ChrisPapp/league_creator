@@ -85,5 +85,47 @@ public class LeagueDAO {
  		}
 	}
 
+	public void register(League league, String pass) throws Exception {
+
+				Connection con = null;
+				DatabaseAccess db = new DatabaseAccess ();
+				String insertNewUserSQL = "INSERT INTO league "
+						+ " ( name, logo_path ) "
+						+ " VALUES (?, ?);";
+
+				try {
+
+						con = db.getConnection(); //get Connection
+
+						PreparedStatement stmt = con.prepareStatement(insertNewUserSQL);
+
+						stmt.setString(1, league.getName());
+						stmt.setString(2, league.getLogo());
+
+						stmt.executeUpdate();
+						stmt.close();
+
+
+				} catch (SQLIntegrityConstraintViolationException  e) {
+						// if username or email already registered
+						throw new Exception("League already exists.");
+
+				} catch (SQLException e) {
+
+						throw new Exception(e.getMessage());
+
+				} catch (Exception e) {
+
+						throw new Exception(e.getMessage());
+
+				} finally {
+
+						if(con != null) // if connection is still open, then close.
+							con.close();
+
+			}
+
+	}//end of register
+
 
 }

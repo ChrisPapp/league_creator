@@ -107,6 +107,13 @@
       <input type="phone" class="form-control" id="inputPhone3" name="Phone" placeholder="Enter your phone number">
     </div>
    </div>
+   
+    <div class="form-group">
+    <label for="inputpicture3" class="col-sm-2 control-label" style= "font-family: 'Montserrat', sans-serif;"> <h4 style="color:#00004d"> Profile photo </h4> </label>
+    <div class="col-sm-10">
+      <input type="picture" class="form-control" id="inputpicture3" name="Picture" placeholder="Enter the link of your profile photo">
+    </div>
+   </div>
 
 	<div class="form-group">
   	 <div class="col-sm-offset-2 col-sm-10">

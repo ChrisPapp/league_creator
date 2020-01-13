@@ -2,7 +2,6 @@
 <!-- @author ΣΙΜΙΤΖΗ ΙΩΑΝΝΑ 8170117 -->
 <%@ page import="league.*, java.util.List" %>
 
-
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -18,20 +17,17 @@
     <%@ include file="LeagueHeadDefaults.jsp" %>
 
 	</head>
-		
-		<%
+	
+	<%
 	if (session.getAttribute("user1") == null) {
 		request.setAttribute("message", "You have to log in, in order to use this site!");
 		%>  
 		<jsp:forward page= "login.jsp" />
 	<% } else {
 		
-		 User user = (User) session.getAttribute("user1");
+		User user = (User) session.getAttribute("user1");
 		
 	}%>
-	
-		<% LeagueDAO leagueDAO = new LeagueDAO();
-		List<League> leagues = leagueDAO.getAllLeagues(); %>
 	
 	<body>
 		
@@ -57,37 +53,30 @@
 				</div>
 			</div>
 
-			<!-- Page Title -->
-			<div class="page-header" style= "font-family: 'Montserrat', sans-serif;";>
-				<h1 style="color:#00004d"> <p> Choose your League</h1>
-			</div>
 
-			<form class="form-horizontal" id="form1" name="form1" method="post" action="chooseleagueController.jsp">
-			<div class="form-group">
-				<select id="leaguename" name="leaguename" class="form-control" required style="border-radius: 300px; border: 2px #00004d; padding: 20px; width: 210px; height: 12px" >
-				<option selected disabled style= "font-family: 'Montserrat', sans-serif;"> <h4 style="color:#00004d">Choose your league</option>
-					
-					<% for (League league: leagues) { %>
-					
-							<option style= "font-family: 'Montserrat', sans-serif', 'color:blue';"> <h4 value=" <%=league.getName() %>"> <%=league.getName() %> </option>
-						   
-					<% } %>
-					
-				</select>
-			</div>
-		
-	  </div>
-	  
-	   <div class="form-group">
-		<div class="col-sm-offset-2 col-sm-10">
-			<button type="submit" class="btn btn-success" style= "font-family: 'Montserrat', sans-serif;">Save</button>
-		</div>
-	</div>
-	  
-</form>
-		<!-- /container -->
-		
-				<script src="js/jquery.min.js"></script>
+			<form class="form-horizontal" id="form1" name="form1" method="post" action="createpostController.jsp">
+				<div class="form-group" style= "font-family: 'Montserrat', sans-serif;">
+					<label for="imputtitle1">Title of post</label>
+						<input type="title" class="form-control" id="inputtitle1" placeholder="your title">
+				</div>
+			
+				<div class="form-group" style= "font-family: 'Montserrat', sans-serif;">
+					<label for="inputcontent1">Here write your post</label>
+					<textarea class="form-control" id="inputcontent1" rows="3"></textarea>
+				</div>
+				
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="post" class="btn btn-success" style= "font-family: 'Montserrat', sans-serif;">Post!</button>
+					</div>
+				</div>
+			</form>
+			
+			
+			
+			
+			
+		<script src="js/jquery.min.js"></script>
 		<!-- Bootstrap core JavaScript -->
 		<script	src="js/bootstrap.min.js"></script>
 </body>
