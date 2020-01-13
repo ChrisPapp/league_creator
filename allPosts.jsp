@@ -13,7 +13,7 @@
   	<body>
   		<%@ include file="navbar.jsp" %>
         <ul class="postList">
-        <%  ArrayList<Post> postList = currentLeague.getPosts(-1); // Do not limit results
+        <%  ArrayList<Post> postList = currentLeague.getPosts(-1, -1); // Do not limit results
             for (Post post : postList) { %>
                 <li><a href="post.jsp?post=<%= "" + post.getId() %>"><%= post.getTitle() %></a></li>
             <%}

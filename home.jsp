@@ -18,7 +18,7 @@
 	<%@ include file="navbar.jsp" %>
 
 	<% 	final int POST_LIMIT = 3;
-		List<Post> postList = currentLeague.getPosts(POST_LIMIT);
+		List<Post> postList = currentLeague.getPosts(-1, POST_LIMIT);
 	%>
 	
 	<div class="header" style= "font-family: 'Lilita One', cursive;";>

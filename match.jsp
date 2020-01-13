@@ -54,14 +54,14 @@
           <div class="grid-item grid-item--header">
             <img src=<%= currentMatch.getHome().getLogo() %> alt=<%= currentMatch.getHome().getName() %>>
           </div>
-          <div class="grid-item result clickable" id="homeGoals">
-            <p><%= currentMatch.getHomeStats().goalsScored != null ? currentMatch.getHomeStats().goalsScored : "-" %></p>
+          <div class="grid-item result">
+            <p class=clickable id="homeGoals"><%= currentMatch.getHomeStats().goalsScored != null ? currentMatch.getHomeStats().goalsScored : "-" %></p>
           </div>
-          <div class="grid-item result clickable" id="homeYellows">
-            <p><%= currentMatch.getHomeStats().yellowCards != null ? currentMatch.getHomeStats().yellowCards : "-" %></p>       
+          <div class="grid-item result">
+            <p class=clickable id="homeYellows"><%= currentMatch.getHomeStats().yellowCards != null ? currentMatch.getHomeStats().yellowCards : "-" %></p>       
           </div>
-          <div class="grid-item result clickable" id="homeReds">
-            <p><%= currentMatch.getHomeStats().redCards != null ? currentMatch.getHomeStats().redCards : "-" %></p>
+          <div class="grid-item result">
+            <p class=clickable id="homeReds"><%= currentMatch.getHomeStats().redCards != null ? currentMatch.getHomeStats().redCards : "-" %></p>
           </div>
         </div>
 
@@ -69,14 +69,14 @@
           <div class="grid-item grid-item--header">
             <img src=<%= currentMatch.getAway().getLogo() %> alt=<%= currentMatch.getAway().getName() %>>
           </div>
-          <div class="grid-item result clickable" id="awayGoals">
-            <p><%= currentMatch.getAwayStats().goalsScored != null ? currentMatch.getAwayStats().goalsScored : "-" %></p>
+          <div class="grid-item result" id="awayGoals">
+            <p class="clickable" id="awayGoals"><%= currentMatch.getAwayStats().goalsScored != null ? currentMatch.getAwayStats().goalsScored : "-" %></p>
           </div>
-          <div class="grid-item result clickable" id="awayYellows">
-            <p><%= currentMatch.getAwayStats().yellowCards != null ? currentMatch.getAwayStats().yellowCards : "-" %></p>       
+          <div class="grid-item result" id="awayYellows">
+            <p class="clickable" id="awayYellows"><%= currentMatch.getAwayStats().yellowCards != null ? currentMatch.getAwayStats().yellowCards : "-" %></p>       
           </div>
           <div class="grid-item result clickable" id="awayReds">
-            <p><%= currentMatch.getAwayStats().redCards != null ? currentMatch.getAwayStats().redCards : "-" %></p>
+            <p class="clickable" id="awayReds"><%= currentMatch.getAwayStats().redCards != null ? currentMatch.getAwayStats().redCards : "-" %></p>
           </div>
         </div>
       </div>
@@ -86,18 +86,18 @@
       <div>
         <p>Referee: <% if (currentMatch.getReferee() != null) { %><a href="profile.jsp?user=<%=currentMatch.getReferee().getId()%>"><span id="refereeName"><%=currentMatch.getReferee().getFullName()%></span></a> <% } %></p>
       </div>
-      <div class=clickable id="date">
-        <p><%=currentMatch.getDateString()%></p>
+      <div>
+        <p class=clickable id="date"><%=currentMatch.getDateString()%></p>
       </div>
     </div>
 
     <% if (currentUser != null && currentUser.canReferee()) { %>
       <div class="submitContainer">
-        	<button class="defButton" type="submit">Update match</button>
+        	<button class="defButton" type="submit" id="clickableSubmit" style="display: none;">Update match</button>
       </div>
       </form>	
       <%-- Code for clicking and changing to input box --%>
-      <script src="js/match.js"></script> 
+      <script src="js/clickable.js"></script> 
     <% } %>    
   </body>
 </html>

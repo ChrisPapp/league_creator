@@ -129,7 +129,7 @@ public class League {
 	}
 
 	// Get League Posts ordered by date
-	public ArrayList<Post> getPosts(int limit) {
+	public ArrayList<Post> getPosts(int userId, int limit) {
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -138,12 +138,21 @@ public class League {
 		try {
 			con = DatabaseAccess.getConnection();
 			String query = "SELECT * FROM post JOIN " + DatabaseAccess.getDatabaseName() + ".user u ON post.poster_id = u.iduser WHERE u.league_id = ? ";
+			if (userId > 0) {
+				query+= "AND u.iduser = ? ";
+			}
+			query += " ORDER BY date DESC ";
 			if (limit > 0) {
-				query += "LIMIT ?";
+				query += "LIMIT ? ";
 			}
 			stmt = con.prepareStatement(query);
 			stmt.setInt(1, this.getId());
-			if (limit > 0) {
+			if (userId > 0 && limit > 0) {
+				stmt.setInt(2, userId);
+				stmt.setInt(3, limit);
+			} else if (userId > 0) {
+				stmt.setInt(2, userId);
+			} else if (limit > 0) {
 				stmt.setInt(2, limit);
 			}
 			rs = stmt.executeQuery();
@@ -158,8 +167,8 @@ public class League {
 				postList.add(post);
 			}
 		} catch (SQLException e) {
-			Post post = new Post(1, e.getMessage(), e.getStackTrace().toString(), user, LocalDateTime.now());
-			postList.add(post);
+			/*Post post = new Post(1, e.getMessage(), e.getStackTrace().toString(), user, LocalDateTime.now());
+			postList.add(post); // Debug hacks */
 			System.out.println(e.getMessage());
 		} finally {
 			try {

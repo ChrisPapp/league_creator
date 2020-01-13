@@ -8,6 +8,8 @@ package league;
 
 import java.sql.*;
 import database.DatabaseAccess;
+import java.util.ArrayList;
+import java.util.List;
 
 public class User {
 
@@ -23,14 +25,15 @@ public class User {
 	private boolean isAdmin;
 	private int leagueid;
 
-	public User(int id, String name, String surname, String email, String username, String phone,
-			String profilePic, boolean canReferee, boolean canPost, boolean isAdmin, int leagueid) {
+	public User(int id, String name, String surname, String email, String username, String phone, String profilePic,
+			boolean canReferee, boolean canPost, boolean isAdmin, int leagueid) {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
 		this.username = username;
 		this.phone = phone;
+		this.profilePic = profilePic;
 		this.canPost = canPost;
 		this.isAdmin = isAdmin;
 		this.canPost = canPost;
@@ -194,5 +197,92 @@ public class User {
 			return this.name + " " + this.surname;
 		}
 	}
+
+	public List<Result> getMatchesAsReferee() {
+		List<Result> resList = new ArrayList<Result>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            con = DatabaseAccess.getConnection();
+            final String query = 
+            "SELECT m.idmatch, homeStats.goals_scored, awayStats.goals_scored, home.name, away.name " + 
+			"FROM " + DatabaseAccess.getDatabaseName() + ".match m " + 
+			"JOIN stats homeStats ON m.idmatch = homeStats.match_id AND m.team_home = homeStats.team_id " +
+			"JOIN team home ON homeStats.team_id = home.idteam " +
+			"JOIN stats awayStats ON m.idmatch = awayStats.match_id AND m.team_away = awayStats.team_id " +
+			"JOIN team away ON awayStats.team_id = away.idteam " +
+			"WHERE m.referee_id = ? " +
+			"ORDER BY date DESC;";
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, this.getId());
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                Integer nValue = rs.getInt(1);                      // Notice getInt will return 0 if SQL value was null, therefore we use rs.wasNull
+                Integer matchId = rs.wasNull() ? null : nValue;
+                nValue = rs.getInt(2);
+                Integer goalsHome = rs.wasNull() ? null : nValue;
+                nValue = rs.getInt(3);
+				Integer goalsAway = rs.wasNull() ? null : nValue;
+				String homeName = rs.getString(4);
+				String awayName = rs.getString(5);
+                final Result res = new Result(matchId, goalsHome, goalsAway, homeName, awayName);
+                resList.add(res);
+            }
+        } catch (final SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                rs.close();
+            } catch (final Exception e) {
+                /* ignored */ }
+            try {
+                stmt.close();
+            } catch (final Exception e) {
+                /* ignored */ }
+            try {
+                con.close();
+            } catch (final Exception e) {
+                /* ignored */ }
+        }
+		return resList;
+	}
+
+	public void update()
+    {
+
+		Connection con = null;
+		PreparedStatement stmt = null;
+        
+		try {
+            con = DatabaseAccess.getConnection();
+            String query = "UPDATE " + DatabaseAccess.getDatabaseName() + ".user SET " +
+            "name = ?, " + 
+			"surname = ?, " + 
+			"mail = ?, " + 
+			"phone = ?, " + 
+			"profile_pic = ? " + 
+            "WHERE iduser = ?";    
+            stmt = con.prepareStatement(query);
+			stmt.setString(1, this.name);
+			stmt.setString(2, this.surname);
+			stmt.setString(3, this.email);
+			stmt.setString(4, this.phone);
+			stmt.setString(5, this.profilePic);
+            stmt.setInt(6, this.id);
+            stmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				stmt.close();
+			} catch (Exception e) {
+				/* ignored */ }
+			try {
+				con.close();
+			} catch (Exception e) {
+				/* ignored */ }
+		}
+    }
 
 } // End of class
