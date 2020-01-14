@@ -173,6 +173,10 @@ public class User {
 		return this.canReferee;
 	}
 
+	public boolean canPost() {
+		return this.canPost;
+	}
+
 	public int getId() {
 		return this.id;
 	}
@@ -298,7 +302,9 @@ public class User {
 			"surname = ?, " + 
 			"mail = ?, " + 
 			"phone = ?, " + 
-			"profile_pic = ? " + 
+			"profile_pic = ?, " + 
+			"canReferee = ?, " + 
+			"canPost = ? " + 
             "WHERE iduser = ?";    
             stmt = con.prepareStatement(query);
 			stmt.setString(1, this.name);
@@ -306,7 +312,9 @@ public class User {
 			stmt.setString(3, this.email);
 			stmt.setString(4, this.phone);
 			stmt.setString(5, this.profilePic);
-            stmt.setInt(6, this.id);
+			stmt.setBoolean(6, this.canReferee);
+			stmt.setBoolean(7, this.canPost);
+            stmt.setInt(8, this.id);
             stmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -361,6 +369,14 @@ public class User {
 
 	public boolean isTeamLeader(){
 		return this.team != null && this.team.getId() == this.id;
+	}
+
+	public void setReferee(boolean canReferee){
+		this.canReferee = canReferee;
+	}
+
+	public void setPoster(boolean canPost) {
+		this.canPost = canPost;
 	}
 
 } // End of class

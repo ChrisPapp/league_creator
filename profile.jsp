@@ -14,6 +14,7 @@
 		String userParam = request.getParameter("user");
 		String title;
 		String imgSrc;
+		final String altImg = "images/member1.png";
 		boolean isMyProfile; // We need to show different things to ourselfs and other things to strangers
 		final int ENTRY_LIMIT = 3;
 		List<Result> resultList;
@@ -36,7 +37,7 @@
 		// Set image src
 		imgSrc = user.getProfilePic();
 		if (imgSrc == null) {
-			imgSrc = "images/member1.png";
+			imgSrc = altImg;
 		}
 	%>
 
@@ -48,22 +49,22 @@
 			<div id="container">
 
 
-				<% if (isMyProfile) { %> <form method=POST action="updateUser.jsp"> <% } %>
+				<% if (isMyProfile || currentUser.isAdmin()) { %> <form method=POST action="updateUser.jsp"> <% } %>
 				<div class="profileBubble" id="account">
-					<img class="clickable" id="profile_pic" src="<%=imgSrc%>" alt="<%=user.getFullName()%>">
+					<img class="clickable" id="profile_pic" src="<%=imgSrc%>" alt="<%=altImg%>">
 					<h4>Name: <span class="bubbleInfo clickable" id="name"><%=user.getName()%></span></h4>
 					<h4>Surname: <span class="bubbleInfo clickable" id="surname"><%=user.getSurname()%></span></h4>
 					<h4>Email: <span class="bubbleInfo clickable" id="email"><%=user.getEmail()%></span></h4>
 					<% if (isMyProfile || (currentUser != null && currentUser.isAdmin())) { %>
 						<h4>Phone: <span class="bubbleInfo clickable" id="phone"><%=user.getPhone()%></span></h4>
 					<% } %>
-					<% if (isMyProfile) { 
+					<% if (isMyProfile || currentUser.isAdmin()) { 
 						session.setAttribute("userToUpdate", user);
 					%>
 						<button class="defButton" id="clickableSubmit" style="display: none;">Update Account</button>
 					<% } %>
 				</div>
-				<% if (isMyProfile) { %> </form> <% } %>
+				<% if (isMyProfile || currentUser.isAdmin()) { %> </form> <% } %>
 
 
 				<div class="profileBubble" id="team">
@@ -105,52 +106,80 @@
 					<% } %>
 				</div>
 
-
-				<div class="profileBubble" id="referee">
-					<img src="images/refAvatar.jpg" alt="Matches as referee">
-					<h2>Recent matches</h2>
-					<div class="list">
-						<% 	resultList = user.getMatches(true);
-							for (int i = 0; i < resultList.size(); i++) { 
-								Result result = resultList.get(i);
+				<% if ((!isMyProfile && currentUser != null && currentUser.isAdmin()) || user.canReferee()) { %>
+					<div class="profileBubble" id="referee">
+						<img src="images/refAvatar.jpg" alt="Matches as referee">
+						<% if (currentUser != null && currentUser.isAdmin() && !user.isAdmin()) { 
+							session.setAttribute("userToUpdate", user);
 						%>
-							<% if (i < ENTRY_LIMIT) { %> <div class="listItem"> <% } else { %> <div class="listItem toggleMatch" style="display: none;"> <% } %>
-								<a href="match.jsp?match=<%=result.matchId%>" class="link"><%=result.getMatchName()%></a>
-								<p class="listParag"> <%=result.getScore()%> </p>
-							</div>
-						<%	}%>
-						<p class="total">Total matches: <span class="count"><%=resultList.size()%></span></p>
-						<% if (resultList.size() > ENTRY_LIMIT) { %>
-							<button class="defButton toggleBtn" id="toggleMatch">More</button>
+							<button class="defButton" onclick="location.href = 'updateUser.jsp?toggleReferee=0';"><%= user.canReferee() ? "Kick Referee" : "Make Referee"%></button>
+						<%} %>
+
+						<% if (user.canReferee()) {
+							resultList = user.getMatches(true);
+							if (resultList.size() > 0) { %>
+								<h2>Recent matches</h2>
+								<div class="list">
+									<% 
+										for (int i = 0; i < resultList.size(); i++) { 
+											Result result = resultList.get(i);
+									%>
+										<% if (i < ENTRY_LIMIT) { %> <div class="listItem"> <% } else { %> <div class="listItem toggleMatch" style="display: none;"> <% } %>
+											<a href="match.jsp?match=<%=result.matchId%>" class="link"><%=result.getMatchName()%></a>
+											<p class="listParag"> <%=result.getScore()%> </p>
+										</div>
+									<%	}%>
+									<p class="total">Total matches: <span class="count"><%=resultList.size()%></span></p>
+									<% if (resultList.size() > ENTRY_LIMIT) { %>
+										<button class="defButton toggleBtn" id="toggleMatch">More</button>
+									<% } %>
+								</div>
+							<% } else {%>
+								<h2>No matches as referee yet</h2>
+							<% } %>
 						<% } %>
 					</div>
-				</div>
+				<% } %>
 
-
-				<div class="profileBubble" id="posts">
-					<img src="images/postIcon.jpg" alt="Recent posts">
-					<h2>Recent Posts</h2>
-					<div class="list">
-						<% 	List<Post> postList = currentLeague.getPosts(user.getId(), -1);
-							for (int i = 0; i < postList.size(); i++) { 
-								Post post = postList.get(i);
+				<% if ((!isMyProfile && currentUser != null && currentUser.isAdmin()) || user.canPost()) { %>
+					<div class="profileBubble" id="posts">
+						<img src="images/postIcon.jpg" alt="Recent posts">
+						<% if (currentUser != null && currentUser.isAdmin() && !user.isAdmin()) { 
+							session.setAttribute("userToUpdate", user);
 						%>
-							<% if (i < ENTRY_LIMIT) { %> <div class="listItem"> <% } else { %> <div class="listItem togglePost" style="display: none;"> <% } %>
-								<a href="post.jsp?post=<%=post.getId()%>" class="link"><%=post.getTitle()%></a>
-								<p class="listParag" style="text-align: right;"> <%=post.getDateString()%> </p>
-							</div>
-						<%	}%>
-						<p class="total">Total posts: <span class="count"><%=postList.size()%></span></p>
-						<% if (postList.size() > ENTRY_LIMIT) { %>
-							<button class="defButton toggleBtn" id="togglePost">More</button>
+							<button class="defButton" onclick="location.href = 'updateUser.jsp?togglePoster=0';"><%= user.canPost() ? "Ban Posting" : "Allow Posting"%></button>
+						<%} %>
+
+						<% if (user.canPost()) {
+							List<Post> postList = currentLeague.getPosts(user.getId(), -1);
+							if (postList.size() > 0) { %>
+								<h2>Recent Posts</h2>
+								<div class="list">
+									<% 
+										for (int i = 0; i < postList.size(); i++) { 
+											Post post = postList.get(i);
+									%>
+										<% if (i < ENTRY_LIMIT) { %> <div class="listItem"> <% } else { %> <div class="listItem togglePost" style="display: none;"> <% } %>
+											<a href="post.jsp?post=<%=post.getId()%>" class="link"><%=post.getTitle()%></a>
+											<p class="listParag" style="text-align: right;"> <%=post.getDateString()%> </p>
+										</div>
+									<%	}%>
+									<p class="total">Total posts: <span class="count"><%=postList.size()%></span></p>
+									<% if (postList.size() > ENTRY_LIMIT) { %>
+										<button class="defButton toggleBtn" id="togglePost">More</button>
+									<% } %>
+								</div>
+							<% } else {%>
+								<h2>No posts have been made by <span style="color: blue; font-style: italic;"><%=user.getFullName()%></span></h2>
+							<% } %>
 						<% } %>
 					</div>
-				</div>
+				<% } %>
 			</div>
 		</div>
 		<%-- Code for More/Less buttons --%>
       <script src="js/profile.js"></script> 
-	<% if (isMyProfile) { /* Import the clickable interface so the user can change the account data */ %>
+	<% if (isMyProfile || currentUser.isAdmin()) { /* Import the clickable interface so the user can change the account data */ %>
 	  	<script src="js/clickable.js"></script>
 	<% } %>
     </body>
