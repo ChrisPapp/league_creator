@@ -111,7 +111,7 @@ public class UserDAO {
 		String SQLQuery = "	UPDATE user SET league_id=? WHERE username=? ";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-	    User user1 = null;
+
 
 		try {
 

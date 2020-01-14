@@ -66,7 +66,7 @@
 <%
  String leaguechoice = request.getParameter("leaguename");
 
- if (session.getAttribute("user1") == null) {
+ if (session.getAttribute("user") == null) {
 	 
 %>
 
@@ -76,7 +76,7 @@
 	 
 	 UserDAO userDAO = new UserDAO();
 	 LeagueDAO leagueDAO = new LeagueDAO();
-	 User user = (User) session.getAttribute("user1");
+	 User user = (User) session.getAttribute("user");
 	 League idleague = leagueDAO.getLeagueByName(leaguechoice);
 	 userDAO.insertleague(user, idleague);
  }

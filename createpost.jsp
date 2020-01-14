@@ -19,13 +19,13 @@
 	</head>
 	
 	<%
-	if (session.getAttribute("user1") == null) {
+	if (session.getAttribute("user") == null) {
 		request.setAttribute("message", "You have to log in, in order to use this site!");
 		%>  
 		<jsp:forward page= "login.jsp" />
 	<% } else {
 		
-		User user = (User) session.getAttribute("user1");
+		User user = (User) session.getAttribute("user");
 		
 	}%>
 	

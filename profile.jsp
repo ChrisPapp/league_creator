@@ -73,7 +73,7 @@
 						<h2>Free Agent</h2>
 
 						<% if (isMyProfile) { %>
-							<button class="defButton" onclick="location.href = 'createTeam.jsp';">Create Team</button>
+							<button class="defButton" onclick="location.href = 'createteam.jsp';">Create Team</button>
 						<%} else if (currentUser != null && currentUser.isTeamLeader()){ %>
 							<button class="defButton" onclick="location.href = 'updateUserTeam.jsp?user=<%=user.getId()%>&team=<%=currentUser.getTeam().getId()%>';">Add to your team</button>
 						<%} %>

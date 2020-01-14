@@ -65,18 +65,28 @@
 
 <%
  String teamname = request.getParameter("TeamName"); 
- String logopath = request.getParameter("LogoPath"); 
+ String logopath = request.getParameter("TeamLogo"); 
  String leaguechoice = request.getParameter("LeagueName"); 
  
   UserDAO userDAO = new UserDAO();
   LeagueDAO leagueDAO = new LeagueDAO();
-  User user = (User) session.getAttribute("user1");
-  League idleague = leagueDAO.getLeagueByName(leaguechoice);
   
-  Team team1 = new Team( 1, idleague, teamname, logopath); 
-	
+  User user = (User) session.getAttribute("user");
+
+  
+  int idleague = currentLeague.getId();
+  int idleader = currentUser.getId();
+  
+  Team team1 = new Team( 1, idleague, teamname, logopath, idleader ); 
+  
+  
    TeamDAO teamDAO = new TeamDAO();
-   teamDAO.register(team1, idleague); %>
+   teamDAO.register(team1); 
+   Team team = teamDAO.getByName(teamname, user);
+   
+   teamDAO.insertteamid(user, team);
+
+   int officialIdteam = team.getId(); %>
  
   <jsp:forward page="home.jsp"/>
  

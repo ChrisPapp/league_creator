@@ -87,11 +87,11 @@
   <% User user1 = new User(-1, name, surname, email, username, phone, profilePic, false, false, false, currentLeague.getId()); %>
 	
   <% UserDAO userDAO = new UserDAO(); %>
-  <% userDAO.register(user1, password); %>
+  <% userDAO.register(user, password); %>
 
  <jsp:forward page="login.jsp"/>
 	
-	<% session.setAttribute("user", user1); %>
+	<% session.setAttribute("user", user); %>
 	
   <% }else{  %>
   	 

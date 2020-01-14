@@ -85,7 +85,7 @@ public class LeagueDAO {
  		}
 	}
 
-	public void register(League league, String pass) throws Exception {
+	public void register(League league) throws Exception {
 
 				Connection con = null;
 				DatabaseAccess db = new DatabaseAccess ();

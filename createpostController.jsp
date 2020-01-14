@@ -69,7 +69,7 @@
  String title = request.getParameter("Title"); 
  String content = request.getParameter("Content"); 
 
- User user = (User) session.getAttribute("user1");
+ User user = (User) session.getAttribute("user");
  
  Post post1 = new Post( 1, title, content, user, null);
 	

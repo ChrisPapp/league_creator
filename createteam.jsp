@@ -19,19 +19,21 @@
 
 	</head>
 
-		<% LeagueDAO leagueDAO = new LeagueDAO();
+	<% LeagueDAO leagueDAO = new LeagueDAO();
 		List<League> leagues = leagueDAO.getAllLeagues(); %>
-		
-			<%
-		if (session.getAttribute("user1") == null) {
+
+	<%
+		if (session.getAttribute("user") == null) {
 			request.setAttribute("message", "You have to log in, in order to use this site!");
 		%>  
 		<jsp:forward page= "login.jsp" />
 	<% } else {
 		
-		 User user = (User) session.getAttribute("user1");
+		 User user = (User) session.getAttribute("user");
 		
 	}%>
+	
+
 	
 	<body>
 		
@@ -66,22 +68,24 @@
 			<form class="form-horizontal" id="form1" name="form1" method="post" action="createteamController.jsp">
 
 				<div class="form-group">
-					<label for="inputTeamName3" class="col-sm-2 control-label" style= "font-family: 'Montserrat', sans-serif;"> <h4 style="color:#00004d"> Name of Team</h4> </label>
+					<label for="TeamName" class="col-sm-2 control-label" style= "font-family: 'Montserrat', sans-serif;"> <h4 style="color:#00004d"> Name of Team</h4> </label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="inputTeamName3" name= "Name" placeholder="TeamName">
+							<input type="text" class="form-control" id="TeamName" name= "TeamName" placeholder="TeamName">
 						</div>
 				</div>
 				
 				<div class="form-group">
-					<label for="inputTeamLogo3" class="col-sm-2 control-label" style= "font-family: 'Montserrat', sans-serif;"> <h4 style="color:#00004d"> Logo of League</h4> </label>
+					<label for="TeamLogo" class="col-sm-2 control-label" style= "font-family: 'Montserrat', sans-serif;"> <h4 style="color:#00004d"> Logo of League</h4> </label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="inputTeamLogo3" name= "Logo" placeholder="TeamLogo">
+							<input type="text" class="form-control" id="TeamLogo" name= "TeamLogo" placeholder="TeamLogo">
 						</div>
 				</div>
 				
 				<div class="form-group">
-					<select id="leaguename" name="leaguename" class="form-control" required style="border-radius: 300px; border: 2px #00004d; padding: 20px; width: 210px; height: 12px" > 
-						<option selected disabled style= "font-family: 'Montserrat', sans-serif;"> <h4 style="color:#00004d">Choose your league</option>
+					
+					<label for="LeagueName" class="col-sm-2 control-label" style= "font-family: 'Montserrat', sans-serif;"> <h4 style="color:#00004d"> Choose your league</h4> </label>
+					<select id="leaguename" name="leaguename" class="form-control" required style="border-rounded: 400px; border: 3px #00004d; padding: 20px; width: 210px; height: 12px" > 
+						
 					
 						<% for (League league: leagues) { %>
 					
@@ -91,7 +95,7 @@
 					
 				</select>
 			</div>
-				
+
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<button type="submit" class="btn btn-success" style= "font-family: 'Montserrat', sans-serif;">Save</button>
