@@ -27,11 +27,11 @@
 		</div>
 	</div>
 	
-	<div class="img-rounded" style="float: left; background-color: #ffff80; width: 315px; height: auto; border: 0px solid black; margin: 10px;">
+	<div class="img-rounded" style="float: left; background-color: #ffff80; width: 375px; height: auto; border: 0px solid black; margin: 10px;">
 		<h2 style="color: #2d2d86; text-align: center; margin: 10px; padding: 10px; font-family: 'Lilita One', cursive;";>
 			Our announcements
 		</h2>
-		<div id="cc-homepage-announcements" style="height: 200px; overflow-x: hidden; overflow-y: auto; padding: 6px; text-align: left;">
+		<div id="cc-homepage-announcements" style="height: 250px; overflow-x: hidden; overflow-y: auto; padding: 6px; text-align: left;">
 			<% 
 			 for (int i = 0; i < postList.size(); i++) { %>
                 <li><a href="post.jsp?post=<%= "" + postList.get(i).getId() %>" class="homeTitle"><%= postList.get(i).getTitle() %></a></li>
@@ -40,7 +40,7 @@
 		</div>
 	</div>
 	
-	<div class="img-rounded" style="float: right; background-color: #ffff80; width: 315px; height: 220px; border: 0px solid black; margin: 10px;">
+	<div class="img-rounded" style="float: right; background-color: #ffff80; width: 375px; height: 150px; border: 0px solid black; margin: 10px;">
 		<h2 style="color: #2d2d86; text-align: center; margin: 10px; padding: 10px; font-family: 'Lilita One', cursive;";>
 			
 		</h2>

@@ -16,9 +16,10 @@
         String matchDate = request.getParameter("date");
 
         if (homeGoals == null && homeYellows == null && homeReds == null && 
-            awayGoals == null && awayYellows == null && awayReds == null && matchDate == null){ %>
-                <jsp:forward page="results.jsp"/>
-            <%}
+            awayGoals == null && awayYellows == null && awayReds == null && matchDate == null){
+                response.sendRedirect("results.jsp");
+                return;
+            }
 
         if (homeGoals != null) {
             try {
@@ -73,6 +74,7 @@
         }
         match.update(currentUser.getId());
         session.removeAttribute("matchToUpdate");
+        response.sendRedirect("results.jsp");
+        return;
     }
 %>
-<jsp:forward page="match.jsp"/>

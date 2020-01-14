@@ -1,3 +1,8 @@
+html {
+    height: 100%;
+    width: 100%;
+}
+
 .header {
     height: 400px;
     display: flex;
@@ -7,16 +12,16 @@
 
 @media all and (orientation:landscape) {
     body {
-        background: url("../images/background.jpg");
+        background-image: url("../images/background.jpg");
     }
     .header {
-        height: 370px;
+        height: 230px;
     }
 }
 
 @media all and (orientation:portrait) {
     body {
-        background: url("../images/portraitbg.jpg");
+        background-image: url("../images/portraitbg.jpg");
     }
     .header {
         height: 800px;
@@ -33,11 +38,13 @@ h2 {
 }
 
 body {
-    background-size: 100%;
+    background-position: center;
+    background-size: cover;
     background-repeat: no-repeat;
     left: 0;
     height: 100%;
     width: 100%;
+    overflow: hidden;
 }
 
 .homeTitle {
