@@ -11,15 +11,12 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="images/favicon.ico">
-
-	<title>Log in FootClub</title>
-
+	<%@ include file="LeagueHeadDefaults.jsp" %>
 	<!-- Bootstrap core CSS -->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<!-- Bootstrap Optional theme -->
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="css/default.css">
-	<%@ include file="LeagueHeadDefaults.jsp" %>
 	<!-- Custom styles for this template -->
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -31,25 +28,14 @@
 
 	<body>
 		
-		<nav>
-			<ul class=main-nav>
-				<li id="home"><a href="home.jsp" style= "font-family: 'Montserrat', sans-serif;";>Home</a></li>
-				<li id="results"><a href="results.jsp" style= "font-family: 'Montserrat', sans-serif;";>Results</a></li>
-				<li id="ranking"><a href="ranking.jsp" style= "font-family: 'Montserrat', sans-serif;";>Ranking</a></li>
-				<li id="login"><a href="login.jsp" style= "font-family: 'Montserrat', sans-serif;";>Log in</a></li>
-				<li id="register"><a href="register.jsp" style= "font-family: 'Montserrat', sans-serif;";>Register</a></li>
-				<link href="https://fonts.googleapis.com/css?family=Mansalva&display=swap" rel="stylesheet">
-				<link href="https://fonts.googleapis.com/css?family=Lilita+One|Mansalva&display=swap" rel="stylesheet">
-				<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-			</ul>
-		</nav>
+		<%@ include file="navbar.jsp" %>
 
 		<div class="container theme-showcase" role="main">
 
 			<!-- Main jumbotron for a primary marketing message or call to action -->
 			<div class="header" style= "font-family: 'Lilita One', cursive;";>
 				<div align="center">
-					<h1 style="color:#00004d"> FootClub</h1>
+					<h1 style="color:#00004d"> <% currentLeague.getName() %></h1>
 				</div>
 			</div>
 			

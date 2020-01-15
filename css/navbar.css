@@ -30,13 +30,13 @@ body {
 
 @media all and (orientation:portrait) {
     .main-nav {
-        font-size: 2.2em;
+        font-size: 30px;
     }
 }
 
 @media all and (orientation:landscape) {
     .main-nav {
-        font-size: 1.5em;
+        font-size: 25px;
     }
 }
 
