@@ -19,9 +19,6 @@
 
 	</head>
 
-	<% LeagueDAO leagueDAO = new LeagueDAO();
-		List<League> leagues = leagueDAO.getAllLeagues(); %>
-
 	<%
 		if (session.getAttribute("user") == null) {
 			request.setAttribute("message", "You have to log in, in order to use this site!");
@@ -37,18 +34,7 @@
 	
 	<body>
 		
-		<nav>
-			<ul class=main-nav>
-				<li id="home"><a href="home.jsp" style= "font-family: 'Montserrat', sans-serif;";>Home</a></li>
-				<li id="results"><a href="results.jsp" style= "font-family: 'Montserrat', sans-serif;";>Results</a></li>
-				<li id="ranking"><a href="ranking.jsp" style= "font-family: 'Montserrat', sans-serif;";>Ranking</a></li>
-				<li id="login"><a href="login.jsp" style= "font-family: 'Montserrat', sans-serif;";>Log in</a></li>
-				<li id="register"><a href="register.jsp" style= "font-family: 'Montserrat', sans-serif;";>Register</a></li>
-				<link href="https://fonts.googleapis.com/css?family=Mansalva&display=swap" rel="stylesheet">
-				<link href="https://fonts.googleapis.com/css?family=Lilita+One|Mansalva&display=swap" rel="stylesheet">
-				<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-			</ul>
-		</nav>
+		<%@ include file="navbar.jsp" %>
 
 		<div class="container theme-showcase" role="main">
 
