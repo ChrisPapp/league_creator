@@ -49,7 +49,7 @@
 			<div id="container">
 
 
-				<% if (isMyProfile || currentUser.isAdmin()) { %> <form method=POST action="updateUser.jsp"> <% } %>
+				<% if (isMyProfile || (currentUser != null && currentUser.isAdmin())) { %> <form method=POST action="updateUser.jsp"> <% } %>
 				<div class="profileBubble" id="account">
 					<img class="clickable" id="profile_pic" src="<%=imgSrc%>" alt="<%=altImg%>">
 					<h4>Name: <span class="bubbleInfo clickable" id="name"><%=user.getName()%></span></h4>
@@ -58,13 +58,13 @@
 					<% if (isMyProfile || (currentUser != null && currentUser.isAdmin())) { %>
 						<h4>Phone: <span class="bubbleInfo clickable" id="phone"><%=user.getPhone()%></span></h4>
 					<% } %>
-					<% if (isMyProfile || currentUser.isAdmin()) { 
+					<% if (isMyProfile || (currentUser != null && currentUser.isAdmin())) { 
 						session.setAttribute("userToUpdate", user);
 					%>
 						<button class="defButton" id="clickableSubmit" style="display: none;">Update Account</button>
 					<% } %>
 				</div>
-				<% if (isMyProfile || currentUser.isAdmin()) { %> </form> <% } %>
+				<% if (isMyProfile || (currentUser != null && currentUser.isAdmin())) { %> </form> <% } %>
 
 
 				<div class="profileBubble" id="team">
@@ -179,7 +179,7 @@
 		</div>
 		<%-- Code for More/Less buttons --%>
       <script src="js/profile.js"></script> 
-	<% if (isMyProfile || currentUser.isAdmin()) { /* Import the clickable interface so the user can change the account data */ %>
+	<% if (isMyProfile || (currentUser != null && currentUser.isAdmin())) { /* Import the clickable interface so the user can change the account data */ %>
 	  	<script src="js/clickable.js"></script>
 	<% } %>
     </body>
