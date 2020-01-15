@@ -14,7 +14,7 @@
 
 @media all and (orientation:landscape) {
     .grid {
-        max-height: 40vw;
+        max-height: 35vw;
     }
 }
 

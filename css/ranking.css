@@ -22,13 +22,17 @@
     padding: 10px;
 }
 
+.grid-item {
+    background-color: rgba(223, 144, 41, 0.652);
+}
+
 .grid-item--header {
-    background-color: silver;
+    background-color: rgba(192, 192, 192, 0.7);
     color: white;
 }
 
 .grid-col--fixed-left .grid-item {
-    background-color: silver;
+    background-color: rgba(192, 192, 192, 0.7);
 }
 
 .grid-item>img {
@@ -38,10 +42,6 @@
     max-width: 100%;
     color: red;
     font-size: 1.5em;
-}
-
-.result {
-    background-color: whitesmoke;
 }
 
 @media all and (orientation:landscape) {
