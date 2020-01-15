@@ -189,6 +189,10 @@ public class User {
 		this.leagueid = leagueid;
 	}
 
+	public void setTeam(Team team) {
+		this.team = team;
+	}
+
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", name=" + name + ", surname=" + surname + ", email=" + email + "]";

@@ -78,7 +78,7 @@
 							<button class="defButton" onclick="location.href = 'updateUserTeam.jsp?user=<%=user.getId()%>&team=<%=currentUser.getTeam().getId()%>';">Add to your team</button>
 						<%} %>
 					<%} else {%>
-						<img src="<%= user.getTeam().getLogo()%>" alt="<%= user.getTeam().getName()%>">
+						<img src="<%= user.getTeam().getLogo()%>" alt="images/team.jpg">
 						<% if (isMyProfile) { %>
 						<button class="defButton" onclick="location.href = 'updateUserTeam.jsp?user=<%=user.getId()%>';">Leave team</button>
 						<%} %>
