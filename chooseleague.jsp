@@ -14,81 +14,53 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<!-- Bootstrap Optional theme -->
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="css/default.css">
-    <%@ include file="LeagueHeadDefaults.jsp" %>
+	<link rel="stylesheet" href="css/default_styles.css">
+	<link rel="stylesheet" href="css/chooseLeague.css">
 
 	</head>
-		
-		<%
-	if (session.getAttribute("user") == null) {
-		request.setAttribute("message", "You have to log in, in order to use this site!");
-		%>  
-		<jsp:forward page= "login.jsp" />
-	<% } else {
-		
-		 User user = (User) session.getAttribute("user");
-		
-	}%>
 	
-		<% LeagueDAO leagueDAO = new LeagueDAO();
-		List<League> leagues = leagueDAO.getAllLeagues(); %>
+		<% 	
+			List<LeagueStats> leagueStats = League.getAllLeagueStats();
+			session.removeAttribute("league"); // Reset currentLeague;
+			session.removeAttribute("user"); // Reset currentUser;
+		%>
 	
 	<body>
-		
-		<nav>
-			<ul class=main-nav>
-				<li id="home"><a href="home.jsp" style= "font-family: 'Montserrat', sans-serif;";>Home</a></li>
-				<li id="results"><a href="results.jsp" style= "font-family: 'Montserrat', sans-serif;";>Results</a></li>
-				<li id="ranking"><a href="ranking.jsp" style= "font-family: 'Montserrat', sans-serif;";>Ranking</a></li>
-				<li id="login"><a href="login.jsp" style= "font-family: 'Montserrat', sans-serif;";>Log in</a></li>
-				<li id="register"><a href="register.jsp" style= "font-family: 'Montserrat', sans-serif;";>Register</a></li>
-				<link href="https://fonts.googleapis.com/css?family=Mansalva&display=swap" rel="stylesheet">
-				<link href="https://fonts.googleapis.com/css?family=Lilita+One|Mansalva&display=swap" rel="stylesheet">
-				<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-			</ul>
-		</nav>
+		<div class="bg-image blur"></div>
+    	<div class="content">
+			<div class="container theme-showcase" role="main">
 
-		<div class="container theme-showcase" role="main">
-
-			<!-- Main jumbotron for a primary marketing message or call to action -->
-			<div class="header" style= "font-family: 'Lilita One', cursive;";>
-				<div align="center">
-					<h1 style="color:#00004d">FootClub</h1>
+				<div class="header" style= "font-family: 'Lilita One', cursive;";>
+					<div align="center">
+						<h1 style="color:white">FootClub</h1>
+					</div>
 				</div>
-			</div>
 
-			<!-- Page Title -->
-			<div class="page-header" style= "font-family: 'Montserrat', sans-serif;";>
-				<h1 style="color:#00004d"> <p> Choose your League</h1>
-			</div>
+				<div style="display: flex; justify-content: flex-end; padding-bottom: 10px;">
+					<button class="defButton" onClick="location.href = 'createLeague.jsp';">Create League</button>
+				</div>
+				<div class="page-header" align=center style= "font-family: 'Montserrat', sans-serif;";>
+					<h1 style="color: white"> <p> Choose one the available Leagues</h1>
+				</div>
+				
 
-			<form class="form-horizontal" id="form1" name="form1" method="post" action="chooseleagueController.jsp">
-			<div class="form-group">
-				<select id="leaguename" name="leaguename" class="form-control" required style="border-radius: 300px; border: 2px #00004d; padding: 20px; width: 210px; height: 12px" >
-				<option selected disabled style= "font-family: 'Montserrat', sans-serif;"> <h4 style="color:#00004d">Choose your league</option>
-					
-					<% for (League league: leagues) { %>
-					
-							<option style= "font-family: 'Montserrat', sans-serif', 'color:blue';"> <h4 value=" <%=league.getName() %>"> <%=league.getName() %> </option>
-						   
-					<% } %>
-					
-				</select>
+				<div class="leagueGrid">
+						<% for (LeagueStats stats: leagueStats) { %>
+						
+								<div class="leagueContainer" onclick="location.href='home.jsp?league=<%=stats.league.getName()%>'">
+									<img class="leagueLogo" src="<%=stats.league.getLogo()%>" onerror='this.src="images/league.jfif";'>
+									<div class="leagueInfo">
+										<h2> <%=stats.league.getName() %> </h3>
+										<h3> Participants: <span class="info"><%=stats.userCount%></span>
+										<h3> Teams: <span class="info"><%=stats.teamCount%></span>
+									</div>
+								</div>
+							
+						<% } %>
+				</div>
+			
 			</div>
-		
-	  </div>
-	  
-	   <div class="form-group">
-		<div class="col-sm-offset-2 col-sm-10">
-			<button type="submit" class="btn btn-success" style= "font-family: 'Montserrat', sans-serif;">Save</button>
 		</div>
 	</div>
-	  
-</form>
-		<!-- /container -->
-		
-				<script src="js/jquery.min.js"></script>
-		<!-- Bootstrap core JavaScript -->
-		<script	src="js/bootstrap.min.js"></script>
 </body>
 </html>

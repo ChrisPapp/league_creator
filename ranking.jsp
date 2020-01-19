@@ -16,9 +16,32 @@
 	</head>
 	<body>
 		<%@ include file="navbar.jsp" %>
-    <div class="bg-image"></div>
-    <div class="content">
-      <% ArrayList<Group> groups = currentLeague.getLeagueGroups(); %>
+    <%  boolean shouldAnimate = session.getAttribute("lastPage") == "home.jsp";
+        String bgClasses, contentClasses;
+        if (shouldAnimate) {
+          bgClasses = "bg-image";
+          contentClasses = "content blur";
+        } else {
+          bgClasses = "bg-image blur";
+          contentClasses = "content";
+        }
+    %>
+
+    <div class="<%=bgClasses%>"></div>
+    <div class="<%=contentClasses%>">
+
+
+      <%  session.setAttribute("lastPage", "ranking.jsp");
+          ArrayList<Group> groups = currentLeague.getLeagueGroups(); %>
+      
+      <% if (groups.size() == 0) { %>
+        <h1 style="text-align: center;"><%=currentLeague.getName()%> has no groups yet</h1>
+         <% if (currentUser != null && currentUser.isAdmin()) { %>
+          <div style="display: flex; justify-content: center; padding-bottom: 50px;">
+            <button class="defButton toggleBtn" id="togglePost" onClick="location.href = 'createGroup.jsp';">Create Group</button>
+          </div>
+        <% } %>
+      <%}%>
       <div class="group-container">
         <% for (Group group : groups)  { %>
         <div class="grid-container">
@@ -118,6 +141,14 @@
         </div>
         <%} %>
       </div>
-    </div>
+    </div>    
+    <% if (shouldAnimate) { %>
+      <script src="js/jquery.min.js"></script>
+      <script>
+          $(document).ready(function(e){
+              $(".bg-image , .content").toggleClass("blur");
+            });
+      </script>
+    <% } %>
   </body>
 </html>

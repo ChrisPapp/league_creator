@@ -8,7 +8,9 @@
     padding-bottom: 10%;
 }
 
-.grid-container {}
+.grid-container {
+    padding-bottom: 30px;
+}
 
 .grid {}
 
@@ -66,4 +68,10 @@
 
 .result_pending {
     background-color: rgba(182, 176, 141, 0.7);
+}
+
+@media all and (orientation:portrait) {
+    .result_pending>a {
+        font-size: 1.0em;
+    }
 }

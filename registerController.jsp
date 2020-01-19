@@ -80,11 +80,11 @@
  
  String phone = request.getParameter("Phone");
  
- String profilePic = null;
+ String profilePic = request.getParameter("Picture");
 
  if ( confirm.equals(password) ){ %>
 
-  <% User user1 = new User(-1, name, surname, email, username, phone, profilePic, false, false, false, currentLeague.getId()); %>
+  <% User user1 = new User(-1, name, surname, email, username, phone, profilePic, false, false, false, currentLeague.getId(), null); %>
 	
   <% UserDAO userDAO = new UserDAO(); %>
   <% userDAO.register(user, password); %>

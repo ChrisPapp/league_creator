@@ -33,7 +33,7 @@
         ArrayList<Group> groups = currentLeague.getLeagueGroups(); %>
       <% if (groups.size() == 0) { %>
         <h1 class="group-title"><%=currentLeague.getName()%> has no groups yet</h1>
-      <%return;}%>
+      <%}%>
       <% if (currentUser != null && currentUser.isAdmin()) { %>
         <div style="display: flex; justify-content: center; padding-bottom: 50px;">
           <button class="defButton toggleBtn" id="togglePost" onClick="location.href = 'createGroup.jsp';">Create Group</button>

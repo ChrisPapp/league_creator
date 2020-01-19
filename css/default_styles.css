@@ -1,3 +1,5 @@
+/* This file will be included to every page */
+
 html {
     width: 100%;
 }
@@ -37,11 +39,20 @@ body {
     background-repeat: no-repeat;
     height: 100%;
     width: 100%;
-    -webkit-filter: blur(5px);
-    -moz-filter: blur(5px);
-    -o-filter: blur(5px);
-    -ms-filter: blur(5px);
-    filter: blur(5px);
+    transition: 1s filter linear;
+    -webkit-transition: 0.3s filter linear;
+    -webkit-transition: 0.3s -webkit-filter linear;
+    -moz-transition: 0.3s -moz-filter linear;
+    -ms-transition: 0.3s -ms-filter linear;
+    -o-transition: 0.3s -o-filter linear;
+}
+
+.blur {
+    -webkit-filter: blur(6px);
+    -moz-filter: blur(6px);
+    -o-filter: blur(6px);
+    -ms-filter: blur(6px);
+    filter: blur(6px);
 }
 
 .content {
@@ -51,6 +62,12 @@ body {
     z-index: 9995;
     margin-left: 20px;
     margin-right: 20px;
+    transition: 1s filter linear;
+    -webkit-transition: 0.3s filter linear;
+    -webkit-transition: 0.3s -webkit-filter linear;
+    -moz-transition: 0.3s -moz-filter linear;
+    -ms-transition: 0.3s -ms-filter linear;
+    -o-transition: 0.3s -o-filter linear;
 }
 
 .home_index {
@@ -89,4 +106,83 @@ body {
 .defButton:hover {
     background-color: #419641;
     background-position: 0 -15px;
+}
+
+.defBubble {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 400px;
+    height: auto;
+    border-radius: 80px;
+    padding: 50px;
+    margin: 40px;
+}
+
+.defBubble img {
+    width: 100px;
+    border-radius: 50%;
+}
+
+.defBubble .bubbleInfo {
+    font-weight: lighter;
+    letter-spacing: 1.25;
+    color: rgb(35, 20, 168);
+    font-style: italic;
+}
+
+.defBubble h2 {
+    margin: 50px;
+    font-style: italic;
+}
+
+.defBubble .list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.defBubble .listItem {
+    width: 100%;
+    text-align: center;
+}
+
+.defBubble .link {
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: underline;
+    color: black;
+}
+
+.defBubble .link:hover {
+    color: rgb(12, 130, 209);
+}
+
+.defBubble .listParag {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.defBubble .defButton {
+    align-self: flex-end;
+}
+
+.defBubble .total {
+    align-self: flex-start;
+    font-weight: lighter;
+    font-style: italic;
+}
+
+.defBubble .count {
+    color: rgb(255, 30, 0);
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.defBubble .bubbleName {
+    color: rgb(74, 185, 40);
+    font-style: italic;
 }

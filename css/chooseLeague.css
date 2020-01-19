@@ -1,0 +1,51 @@
+.leagueGrid {
+    display: grid;
+    height: auto;
+    width: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    grid-gap: 5%;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.leagueContainer {
+    position: relative;
+    height: 250px;
+}
+
+.leagueLogo {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
+    height: 100%;
+}
+
+.leagueInfo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(235, 175, 64, 0.9);
+    background-clip: content-box;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    border-radius: 30%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: 0.3s opacity linear;
+}
+
+.leagueInfo:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.info {
+    color: red;
+    font-style: italic;
+}

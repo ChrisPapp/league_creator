@@ -293,7 +293,7 @@ public class User {
 		return resList;
 	}
 
-	public void update()
+	public void update() throws SQLException
     {
 
 		Connection con = null;
@@ -326,11 +326,12 @@ public class User {
 			try {
 				stmt.close();
 			} catch (Exception e) {
-				/* ignored */ }
+				throw e;
+			}
 			try {
 				con.close();
 			} catch (Exception e) {
-				/* ignored */ }
+				throw e; }
 		}
 	}
 
@@ -381,6 +382,10 @@ public class User {
 
 	public void setPoster(boolean canPost) {
 		this.canPost = canPost;
+	}
+
+	public void setId(int id){
+		this.id = id;
 	}
 
 } // End of class

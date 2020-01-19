@@ -29,7 +29,7 @@
         // To avoid tricks, we have to ensure that the target has is not in another Team.
         // Or if the target is the one who made the request, then we can only allow to clear his team and not join any team
         if (currentUser.getId() == userId) {
-            if (teamId == null) {
+            if (teamId == null && !currentUser.isTeamLeader()) { // We don't want to leave a team without a leader
                 currentUser.updateTeam(null);
                 session.setAttribute("user", User.getById(currentUser.getId())); // Refresh currentUser
             }

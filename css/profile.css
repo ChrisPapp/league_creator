@@ -13,23 +13,6 @@
     flex-wrap: wrap;
 }
 
-img {
-    width: 100px;
-    border-radius: 50%;
-}
-
-.profileBubble {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 400px;
-    height: auto;
-    border-radius: 80px;
-    padding: 50px;
-    margin: 40px;
-}
-
 #account {
     background: linear-gradient(135deg, rgb(255, 145, 0), rgba(255, 251, 0, 0.904));
 }
@@ -44,57 +27,4 @@ img {
 
 #posts {
     background: linear-gradient(135deg, rgb(255, 145, 0), rgba(255, 251, 0, 0.904));
-}
-
-.bubbleInfo {
-    font-weight: lighter;
-    letter-spacing: 1.25;
-    color: rgb(35, 20, 168);
-    font-style: italic;
-}
-
-h2 {
-    margin: 50px;
-    font-style: italic;
-}
-
-.list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
-
-.listItem {
-    width: 100%;
-    text-align: center;
-}
-
-.link {
-    font-weight: bold;
-    font-size: 20px;
-    text-decoration: underline;
-    color: black;
-}
-
-.listParag {
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.defButton {
-    align-self: flex-end;
-}
-
-.total {
-    align-self: flex-start;
-    font-weight: lighter;
-    font-style: italic;
-}
-
-.count {
-    color: rgb(255, 30, 0);
-    font-weight: bold;
-    font-size: 24px;
 }

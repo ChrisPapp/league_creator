@@ -2,6 +2,7 @@ package league;
 
 import database.DatabaseAccess;
 import java.util.ArrayList;
+import java.util.List;
 import java.sql.*;
 import java.time.LocalDateTime;
 
@@ -184,12 +185,116 @@ public class League {
 		return postList;
 	}
 
+	// Do a transaction. Ensures that if any of the queries fail, then the others are roled back
+
+	public static void createLeagueAndAdmin(League league, User user, String pass) throws SQLException {
+
+		Connection con = null;
+		PreparedStatement addLeague = null;
+		PreparedStatement addAdmin = null;
+		ResultSet rs = null;
+
+		String leagueQuery = "INSERT INTO league ( name, logo_path ) VALUES (?, ?);";
+
+		String adminQuery = "INSERT INTO user ( name, surname, pswd, mail, phone, league_id, username, canPost, canReferee, is_admin )  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+		try {
+			con = DatabaseAccess.getConnection();
+			con.setAutoCommit(false);
+			addLeague = con.prepareStatement(leagueQuery, PreparedStatement.RETURN_GENERATED_KEYS);
+			addAdmin = con.prepareStatement(adminQuery, PreparedStatement.RETURN_GENERATED_KEYS);
+
+
+			addLeague.setString(1, league.getName());
+			addLeague.setString(2, league.getLogo());
+			addLeague.executeUpdate();
+
+			rs = addLeague.getGeneratedKeys();
+			rs.next();
+			user.setLeagueid(rs.getInt(1));
+			league.setId(rs.getInt(1));
+
+			addAdmin.setString(1, user.getName());
+			addAdmin.setString(2, user.getSurname());
+			addAdmin.setString(3, pass);
+			addAdmin.setString(4, user.getEmail());
+			addAdmin.setString(5, user.getPhone());
+			addAdmin.setInt(6, user.getLeagueid());
+			addAdmin.setString(7, user.getUsername());
+			addAdmin.setBoolean(8, user.canPost());
+			addAdmin.setBoolean(9, user.canReferee());
+			addAdmin.setBoolean(10, user.isAdmin());
+			addAdmin.executeUpdate();
+			rs = addAdmin.getGeneratedKeys();
+			rs.next();
+			user.setId(rs.getInt(1));
+			con.commit();
+		} catch (SQLException e ) {
+			if (con != null) {
+				try {
+					con.rollback();
+					throw e;
+				} catch(SQLException excep) {
+					throw excep;
+				}
+			}
+		} finally {
+			if (addLeague != null) {
+				addAdmin.close();
+			}
+			if (addLeague != null) {
+				addLeague.close();
+			}
+			con.setAutoCommit(true);
+		}
+	}
+
 	public int getId() {
 		return league_id;
 	}
 
 	public void setId(int league_id) {
 		this.league_id = league_id;
+	}
+
+	public static List<LeagueStats> getAllLeagueStats() throws SQLException {
+        List<LeagueStats> list = new ArrayList<LeagueStats>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            con = DatabaseAccess.getConnection();
+            final String query = 
+            "SELECT l.*, count(iduser) as userCount, teams.teamCount FROM league l " + 
+			"LEFT JOIN user u ON u.league_id = l.idleague " +
+			"JOIN ( SELECT l.*, count(idteam) as teamCount FROM league l " +
+			"LEFT JOIN team t ON t.league_id = l.idleague " +
+			"GROUP BY idleague ) AS teams USING (idleague) " +
+			"GROUP BY l.idleague ORDER BY userCount DESC";
+            stmt = con.prepareStatement(query);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+				League league = new League(rs.getInt(1), rs.getString(2), rs.getString(3));
+				LeagueStats stats = new LeagueStats(league, rs.getInt(4), rs.getInt(5));
+                list.add(stats);
+            }
+        } catch (final SQLException e) {
+            throw e;
+        } finally {
+            try {
+                rs.close();
+            } catch (final Exception e) {
+                /* ignored */ }
+            try {
+                stmt.close();
+            } catch (final Exception e) {
+                /* ignored */ }
+            try {
+                con.close();
+            } catch (final Exception e) {
+                /* ignored */ }
+        }
+		return list;
 	}
 
 }

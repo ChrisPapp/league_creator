@@ -40,18 +40,28 @@
 			imgSrc = altImg;
 		}
 	%>
+	<%  boolean shouldAnimate = session.getAttribute("lastPage") == "home.jsp";
+        String bgClasses, contentClasses;
+        if (shouldAnimate) {
+          bgClasses = "bg-image";
+          contentClasses = "content blur";
+        } else {
+          bgClasses = "bg-image blur";
+          contentClasses = "content";
+        }
+    %>
 
   	<body>
 		<%@ include file="navbar.jsp" %>
-		<div class="bg-image"></div>
-		<div class="content">
+		<div class="<%=bgClasses%>"></div>
+		<div class="<%=contentClasses%>">
 			<h1 id="title"><%=title%></h1>
 			<div id="container">
 
 
 				<% if (isMyProfile || (currentUser != null && currentUser.isAdmin())) { %> <form method=POST action="updateUser.jsp"> <% } %>
-				<div class="profileBubble" id="account">
-					<img class="clickable" id="profile_pic" src="<%=imgSrc%>" alt="<%=altImg%>">
+				<div class="defBubble" id="account">
+					<img class="clickable" id="profile_pic" src="<%=imgSrc%>" onerror='this.src="<%=altImg%>";'>
 					<h4>Name: <span class="bubbleInfo clickable" id="name"><%=user.getName()%></span></h4>
 					<h4>Surname: <span class="bubbleInfo clickable" id="surname"><%=user.getSurname()%></span></h4>
 					<h4>Email: <span class="bubbleInfo clickable" id="email"><%=user.getEmail()%></span></h4>
@@ -67,7 +77,7 @@
 				<% if (isMyProfile || (currentUser != null && currentUser.isAdmin())) { %> </form> <% } %>
 
 
-				<div class="profileBubble" id="team">
+				<div class="defBubble" id="team">
 					<% if (user.getTeam() == null) { %>
 						<img src="images/team.jpg" alt="No team">
 						<h2>Free Agent</h2>
@@ -79,9 +89,11 @@
 						<%} %>
 					<%} else {%>
 						<img src="<%= user.getTeam().getLogo()%>" alt="images/team.jpg">
-						<% if (isMyProfile) { %>
-						<button class="defButton" onclick="location.href = 'updateUserTeam.jsp?user=<%=user.getId()%>';">Leave team</button>
-						<%} %>
+						<% if (isMyProfile && !user.isTeamLeader()) { %>
+							<button class="defButton" onclick="location.href = 'updateUserTeam.jsp?user=<%=user.getId()%>';">Leave team</button>
+						<%} else { %>
+							<h4>Team Leader</h4>
+						<% } %>
 						<h2>Recent matches</h2>
 						<div class="list">
 							<% 	resultList = user.getMatches(false);
@@ -99,7 +111,7 @@
 								</div>
 							<%	}%>
 							<p class="total">Total matches: <span class="count"><%=totalMatches%></span></p>
-							<% if (resultList.size() > ENTRY_LIMIT) { %>
+							<% if (totalMatches > ENTRY_LIMIT) { %>
 								<button class="defButton toggleBtn" id="toggleTeam">More</button>
 							<% } %>
 						</div>
@@ -107,7 +119,7 @@
 				</div>
 
 				<% if ((!isMyProfile && currentUser != null && currentUser.isAdmin()) || user.canReferee()) { %>
-					<div class="profileBubble" id="referee">
+					<div class="defBubble" id="referee">
 						<img src="images/refAvatar.jpg" alt="Matches as referee">
 						<% if (currentUser != null && currentUser.isAdmin() && !user.isAdmin()) { 
 							session.setAttribute("userToUpdate", user);
@@ -142,7 +154,7 @@
 				<% } %>
 
 				<% if ((!isMyProfile && currentUser != null && currentUser.isAdmin()) || user.canPost()) { %>
-					<div class="profileBubble" id="posts">
+					<div class="defBubble" id="posts">
 						<img src="images/postIcon.jpg" alt="Recent posts">
 						<% if (currentUser != null && currentUser.isAdmin() && !user.isAdmin()) { 
 							session.setAttribute("userToUpdate", user);
@@ -153,7 +165,7 @@
 						<% if (user.canPost()) {
 							List<Post> postList = currentLeague.getPosts(user.getId(), -1);
 							if (postList.size() > 0) { %>
-								<h2>Recent Posts</h2>
+								<h2>Recent Posts by <span class="bubbleName"><%= user.getName() %></span></h2>
 								<div class="list">
 									<% 
 										for (int i = 0; i < postList.size(); i++) { 
@@ -170,7 +182,7 @@
 									<% } %>
 								</div>
 							<% } else {%>
-								<h2>No posts have been made by <span style="color: blue; font-style: italic;"><%=user.getFullName()%></span></h2>
+								<h2>No posts have been made by <span class="bubbleName"><%=user.getFullName()%></span></h2>
 							<% } %>
 						<% } %>
 					</div>
@@ -178,9 +190,19 @@
 			</div>
 		</div>
 		<%-- Code for More/Less buttons --%>
-      <script src="js/profile.js"></script> 
+      <script src="js/moreLessBtn.js"></script> 
 	<% if (isMyProfile || (currentUser != null && currentUser.isAdmin())) { /* Import the clickable interface so the user can change the account data */ %>
 	  	<script src="js/clickable.js"></script>
 	<% } %>
+
+	<% if (shouldAnimate) { %>
+      <script src="js/jquery.min.js"></script>
+      <script>
+          $(document).ready(function(e){
+              $(".bg-image , .content").toggleClass("blur");
+            });
+      </script>
+    <% } %>
     </body>
 </html>
+<% session.setAttribute("lastPage", "profile.jsp"); %>

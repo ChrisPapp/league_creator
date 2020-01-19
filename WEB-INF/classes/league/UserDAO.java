@@ -14,11 +14,11 @@ import java.sql.*;
 public class UserDAO {
 
 
-	public User authenticate(String username, String password) throws Exception {
+	public User authenticate(String username, String password, int leagueId) throws Exception {
 
 			Connection con = null;
 			DatabaseAccess db = new DatabaseAccess();
-			String sqlQuery = "SELECT * FROM user LEFT JOIN team ON team_id = team.idteam WHERE username=? AND pswd=? ;";
+			String sqlQuery = "SELECT * FROM user LEFT JOIN team ON team_id = team.idteam WHERE username=? AND pswd=? AND user.league_id = ?;";
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 		 	User user = null;
@@ -30,6 +30,7 @@ public class UserDAO {
 					stmt = con.prepareStatement(sqlQuery);
 					stmt.setString(1, username);
 					stmt.setString(2, password);
+					stmt.setInt(3, leagueId);
 
 					rs = stmt.executeQuery();
 
@@ -61,9 +62,7 @@ public class UserDAO {
 
 			Connection con = null;
 			DatabaseAccess db = new DatabaseAccess ();
-			String insertNewUserSQL = "INSERT INTO user "
-					+ " ( name, surname, pswd, mail, phone, league_id, username ) "
-					+ " VALUES (?, ?, ?, ?, ?, ?, ?);";
+			String insertNewUserSQL ="INSERT INTO user ( name, surname, pswd, mail, phone, league_id, username, canPost, canReferee, isAdmin )  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 			try {
 
@@ -78,6 +77,9 @@ public class UserDAO {
 					stmt.setString(5, user.getPhone());
 					stmt.setInt(6, user.getLeagueid());
 					stmt.setString(7, user.getUsername());
+					stmt.setBoolean(8, user.canPost());
+					stmt.setBoolean(9, user.canReferee());
+					stmt.setBoolean(10, user.isAdmin());
 
 					stmt.executeUpdate();
 					stmt.close();
