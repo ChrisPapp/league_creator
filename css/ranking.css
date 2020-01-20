@@ -35,7 +35,11 @@
     background-color: rgba(192, 192, 192, 0.7);
 }
 
-.grid-item>img {
+.grid-item a {
+    height: 100%;
+}
+
+.grid-item img {
     width: auto;
     height: auto;
     max-height: 100%;

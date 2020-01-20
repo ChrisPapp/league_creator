@@ -71,7 +71,7 @@
 					<% if (isMyProfile || (currentUser != null && currentUser.isAdmin())) { 
 						session.setAttribute("userToUpdate", user);
 					%>
-						<button class="defButton" id="clickableSubmit" style="display: none;">Update Account</button>
+						<button type="submit" class="defButton" id="clickableSubmit" style="display: none;">Update Account</button>
 					<% } %>
 				</div>
 				<% if (isMyProfile || (currentUser != null && currentUser.isAdmin())) { %> </form> <% } %>
@@ -88,10 +88,10 @@
 							<button class="defButton" onclick="location.href = 'updateUserTeam.jsp?user=<%=user.getId()%>&team=<%=currentUser.getTeam().getId()%>';">Add to your team</button>
 						<%} %>
 					<%} else {%>
-						<img src="<%= user.getTeam().getLogo()%>" alt="images/team.jpg">
+						<a href="team.jsp?team=<%=user.getTeam().getId()%>"><img src="<%= user.getTeam().getLogo()%>" alt="images/team.jpg"></a>
 						<% if (isMyProfile && !user.isTeamLeader()) { %>
 							<button class="defButton" onclick="location.href = 'updateUserTeam.jsp?user=<%=user.getId()%>';">Leave team</button>
-						<%} else { %>
+						<%} else if (user.isTeamLeader()) { %>
 							<h4>Team Leader</h4>
 						<% } %>
 						<h2>Recent matches</h2>
@@ -160,6 +160,10 @@
 							session.setAttribute("userToUpdate", user);
 						%>
 							<button class="defButton" onclick="location.href = 'updateUser.jsp?togglePoster=0';"><%= user.canPost() ? "Ban Posting" : "Allow Posting"%></button>
+						<%} %>
+
+						<% if (isMyProfile && user.canPost()) { %>
+							<button class="defButton" onclick="location.href = 'createpost.jsp';">Create Post</button>
 						<%} %>
 
 						<% if (user.canPost()) {

@@ -1,0 +1,32 @@
+#teamContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#teamName {
+    text-align: center;
+    color: white;
+    font-size: 40px;
+}
+
+#teamLogo {
+    height: 200px;
+    padding: 20px;
+}
+
+#member {
+    background: linear-gradient(135deg, rgb(255, 145, 0), rgba(255, 251, 0, 0.904));
+}
+
+#leader {
+    background: linear-gradient(135deg, rgb(55, 26, 218), rgba(142, 208, 224, 0.904));
+}
+
+#memberContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}

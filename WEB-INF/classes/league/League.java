@@ -158,7 +158,7 @@ public class League {
 			}
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				user = User.constructUser(rs);
+				user = User.constructUser(rs, null);
 				java.sql.Timestamp ts = rs.getObject("date", java.sql.Timestamp.class);
                 LocalDateTime dateTime = ts.toLocalDateTime();
 				Post post = new Post(rs.getInt("idpost"), rs.getString("title"), rs.getString("content"), user, dateTime);

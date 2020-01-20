@@ -39,7 +39,7 @@ public class Post {
 			while (rs.next()) {
                 java.sql.Timestamp ts = rs.getObject("date", java.sql.Timestamp.class);
                 LocalDateTime dateTime = ts.toLocalDateTime();
-                User user = User.constructUser(rs);
+                User user = User.constructUser(rs, null);
 				post = new Post(rs.getInt("idpost"), rs.getString("title"), rs.getString("content"), user, dateTime);
 			}
 		} catch (SQLException e) {
@@ -60,6 +60,48 @@ public class Post {
             }
 		return post;
     }
+
+    public void register() throws Exception {
+
+
+        Connection con = null;
+        ResultSet rs = null;
+        String insertNewPostSQL = "INSERT INTO post"
+            + " ( poster_id,  title, content, date) "
+            + " VALUES (?, ?, ?, NOW());";
+
+            try {
+
+                con = DatabaseAccess.getConnection();
+
+                PreparedStatement stmt = con.prepareStatement(insertNewPostSQL, PreparedStatement.RETURN_GENERATED_KEYS);
+
+                stmt.setInt(1, this.getPoster().getId());
+                stmt.setString(2, this.getTitle());
+                stmt.setString(3, this.getContent());
+
+                stmt.executeUpdate();
+                rs = stmt.getGeneratedKeys();
+                rs.next();
+                Integer postId = rs.getInt(1);
+                this.setId(postId);
+                stmt.close();
+
+
+            } catch (SQLException e) {
+
+                throw e;
+
+            } finally {
+
+                if(con != null) // if connection is still open, then close.
+                con.close();
+
+            }
+
+    }//end of register
+
+
 
     public Integer getId() {
         return id;

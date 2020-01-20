@@ -39,7 +39,7 @@ public class UserDAO {
 						throw new Exception("Wrong username or password");
 					}
 
-					user = User.constructUser(rs);
+					user = User.constructUser(rs, null);
 
 					rs.close();
 					stmt.close();

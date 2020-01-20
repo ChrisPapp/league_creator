@@ -60,7 +60,7 @@
               </div>
           <% for (Team team: teams) { %>
               <div class="grid-item grid-item--header">
-                <img src=<%= team.getLogo() %> alt=<%= team.getName() %>>
+                <a href="team.jsp?team=<%=team.getId()%>"><img src="<%= team.getLogo() %>" alt="<%= team.getName() %>"></a>
               </div>
           <%} %>
             </div>
@@ -69,7 +69,7 @@
               for (Team awayTeam: teams) { %>
               <div class="grid-col">
                 <div class="grid-item grid-item--header">
-                  <img src=<%= awayTeam.getLogo() %> alt=<%= awayTeam.getName() %>>
+                  <a href="team.jsp?team=<%=awayTeam.getId()%>"><img src="<%= awayTeam.getLogo() %>" alt="<%= awayTeam.getName() %>"></a>
                 </div>
                 <% for (Team homeTeam: teams) {
                   // Handle table diagonal

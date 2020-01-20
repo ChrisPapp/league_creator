@@ -62,7 +62,7 @@ public class User {
 			stmt.setInt(2, leagueId);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				user = User.constructUser(rs);
+				user = User.constructUser(rs, null);
 			}
 		} catch (SQLException e) {
 			throw e;
@@ -85,28 +85,32 @@ public class User {
 
 	// Creates a User object from a ResultSet. The given ResultSet should be checked for validity.
 	// rs.next should have been called outside this function
-	public static User constructUser(ResultSet rs){
+	public static User constructUser(ResultSet rs, Team userTeam) throws SQLException {
 		Team team;
 		int teamId, leagueId;
 		String name, logoPath;
 		User user = null; 
 		
 		try {
-		teamId = rs.getInt("team_id");
-		if (rs.wasNull()) {
-			team = null;
-		} else {
-			leagueId = rs.getInt("league_id");
-			name = rs.getString("team_name");
-			logoPath = rs.getString("logo_path");
-			team = new Team(teamId, leagueId, name, logoPath);
-		}
-		user = new User(rs.getInt("iduser"), rs.getString("name"), rs.getString("surname"),
-				rs.getString("mail"), rs.getString("username"), rs.getString("phone"),
-				rs.getString("profile_pic"), rs.getBoolean("canReferee"), rs.getBoolean("canPost"),
-				rs.getBoolean("is_admin"), rs.getInt("league_id"), team);
+			if (userTeam != null) {
+				team = userTeam;
+			} else {
+				teamId = rs.getInt("team_id");
+				if (rs.wasNull()) {
+					team = null;
+				} else {
+					leagueId = rs.getInt("league_id");
+					name = rs.getString("team_name");
+					logoPath = rs.getString("logo_path");
+					team = new Team(teamId, leagueId, name, logoPath);
+				}
+			}
+			user = new User(rs.getInt("iduser"), rs.getString("name"), rs.getString("surname"),
+					rs.getString("mail"), rs.getString("username"), rs.getString("phone"),
+					rs.getString("profile_pic"), rs.getBoolean("canReferee"), rs.getBoolean("canPost"),
+					rs.getBoolean("is_admin"), rs.getInt("league_id"), team);
 		} catch (SQLException e){
-
+			throw e;
 		}
 		
 		return user;

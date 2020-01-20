@@ -58,7 +58,7 @@
               </div>
               <% for (TeamStats ts: rankings) { %>
                   <div class="grid-item grid-item--header">
-                    <img src=<%= ts.team.getLogo() %> alt=<%= ts.team.getName() %>>
+                    <a href="team.jsp?team=<%=ts.team.getId()%>"><img src="<%= ts.team.getLogo() %>" alt="<%= ts.team.getName() %>"></a>
                   </div>
               <%} %>
             </div>
