@@ -14,7 +14,8 @@
 				<li id="profile"><a href="profile.jsp" class="underline" style= "font-family: 'Montserrat', sans-serif;";><%= currentUser.getName() + " " + currentUser.getSurname() %></a></li>
 				<li id="logout"><a href="logout.jsp" style= "font-family: 'Montserrat', sans-serif;";>Logout</a></li>
 			</div>
-		<% } %>	
+		<% } %>
+		<li id="chooseLeague"><a href="chooseLeague.jsp" style= "font-family: 'Montserrat', sans-serif;";>Exit League</a></li>	
 		<link href="https://fonts.googleapis.com/css?family=Mansalva&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Lilita+One|Mansalva&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
