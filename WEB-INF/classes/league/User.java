@@ -49,22 +49,23 @@ public class User {
 		this.surname = surname;
 	}
 
-	public static User getById(int id) {
+	public static User getById(int id, int leagueId) throws SQLException {
 		User user = null;
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
 			con = DatabaseAccess.getConnection();
-			String query = "SELECT * FROM " + DatabaseAccess.getDatabaseName() + ".user LEFT JOIN team ON user.team_id=team.idteam WHERE iduser=?;";
+			String query = "SELECT * FROM " + DatabaseAccess.getDatabaseName() + ".user LEFT JOIN team ON user.team_id=team.idteam WHERE iduser=? AND user.league_id=?;";
 			stmt = con.prepareStatement(query);
 			stmt.setInt(1, id);
+			stmt.setInt(2, leagueId);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				user = User.constructUser(rs);
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			throw e;
 		} finally {
 			try {
 				rs.close();

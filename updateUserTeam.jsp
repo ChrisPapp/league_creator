@@ -31,10 +31,10 @@
         if (currentUser.getId() == userId) {
             if (teamId == null && !currentUser.isTeamLeader()) { // We don't want to leave a team without a leader
                 currentUser.updateTeam(null);
-                session.setAttribute("user", User.getById(currentUser.getId())); // Refresh currentUser
+                currentUser.setTeam(null);
             }
         } else {
-            User user = User.getById(userId);
+            User user = User.getById(userId, currentLeague.getId());
             if (currentUser.isTeamLeader() && user.getTeam() == null) {
                 user.updateTeam(teamId);
             }

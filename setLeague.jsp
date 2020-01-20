@@ -17,7 +17,7 @@
       if (currentLeague == null) {
         // If still not found, go to "Choose League" page.
         if (currentLeague == null) {
-          response.sendRedirect("createLeague.jsp");
+          response.sendRedirect("chooseLeague.jsp");
           return;
         }
         session.setAttribute("league", currentLeague);

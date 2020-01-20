@@ -21,9 +21,9 @@
 		if (userParam == null || (currentUser != null && currentUser.getId() == Integer.parseInt(userParam))) {
 			user = currentUser;
 		} else {
-			user = User.getById(Integer.parseInt(userParam));
+			user = User.getById(Integer.parseInt(userParam), currentLeague.getId());
 		}
-		if (user == null) { %> <jsp:forward page="login.jsp"/> <%} 
+		if (user == null) { %> <h1>No such user in <%=currentLeague.getName()%></h1> <% return;} 
 
 		isMyProfile = currentUser != null && user.getId() == currentUser.getId();
 
