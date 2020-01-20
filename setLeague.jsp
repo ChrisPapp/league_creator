@@ -22,4 +22,10 @@
         }
         session.setAttribute("league", currentLeague);
       }
+    
+    // Make sure the user is in the current league
+    if (currentUser != null && currentUser.getLeagueid() != currentLeague.getId()) {
+      currentUser = null;
+      session.removeAttribute("user");
+    }
     }%>
