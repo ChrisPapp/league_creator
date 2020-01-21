@@ -62,7 +62,7 @@ public class UserDAO {
 
 			Connection con = null;
 			DatabaseAccess db = new DatabaseAccess ();
-			String insertNewUserSQL ="INSERT INTO user ( name, surname, pswd, mail, phone, league_id, username, canPost, canReferee, isAdmin )  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			String insertNewUserSQL ="INSERT INTO user ( name, surname, pswd, mail, phone, league_id, username, canPost, canReferee, is_admin )  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 			try {
 
