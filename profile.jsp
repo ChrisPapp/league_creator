@@ -57,8 +57,6 @@
 		<div class="<%=contentClasses%>">
 			<h1 id="title"><%=title%></h1>
 			<div id="container">
-
-
 				<% if (isMyProfile || (currentUser != null && currentUser.isAdmin())) { %> <form method=POST action="updateUser.jsp"> <% } %>
 				<div class="defBubble" id="account">
 					<img class="clickable" id="profile_pic" src="<%=imgSrc%>" onerror='this.src="<%=altImg%>";'>

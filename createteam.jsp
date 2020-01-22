@@ -61,7 +61,7 @@
 				</div>
 				
 				<div class="form-group">
-					<label for="TeamLogo" class="col-sm-2 control-label" style= "font-family: 'Montserrat', sans-serif;"> <h4 style="color:#00004d"> Logo of League</h4> </label>
+					<label for="TeamLogo" class="col-sm-2 control-label" style= "font-family: 'Montserrat', sans-serif;"> <h4 style="color:#00004d"> Logo of Team</h4> </label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="TeamLogo" name= "TeamLogo" placeholder="TeamLogo">
 						</div>

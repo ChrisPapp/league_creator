@@ -22,8 +22,8 @@ for (var i = 0; i < clickableElements.length; i++) {
                 initialValue = event.target.src; // If it's an image, we use the img src as initial value
             }
             if (paramName == "date") {
-                initialValue = "dd-mm-yyyy HH:mm";
-                appendTooltip(event.target, "Format: dd-mm-yyyy hh:mm   Use 24-hour system");
+                initialValue = "d-m-yyyy HH:mm";
+                appendTooltip(event.target, "Format: d-M-yyyy HH:mm   Use 24-hour system");
             }
             var element = document.createElement('input');
             element.className = 'update_field';

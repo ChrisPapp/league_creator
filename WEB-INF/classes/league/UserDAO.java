@@ -62,7 +62,7 @@ public class UserDAO {
 
 			Connection con = null;
 			DatabaseAccess db = new DatabaseAccess ();
-			String insertNewUserSQL ="INSERT INTO user ( name, surname, pswd, mail, phone, league_id, username, canPost, canReferee, is_admin )  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			String insertNewUserSQL ="INSERT INTO user ( name, surname, pswd, mail, phone, league_id, username, canPost, canReferee, is_admin, profile_pic )  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 			try {
 
@@ -80,6 +80,7 @@ public class UserDAO {
 					stmt.setBoolean(8, user.canPost());
 					stmt.setBoolean(9, user.canReferee());
 					stmt.setBoolean(10, user.isAdmin());
+					stmt.setString(11, user.getProfilePic());
 
 					stmt.executeUpdate();
 					stmt.close();

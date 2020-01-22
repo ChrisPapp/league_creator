@@ -87,7 +87,7 @@ public class User {
 	// rs.next should have been called outside this function
 	public static User constructUser(ResultSet rs, Team userTeam) throws SQLException {
 		Team team;
-		int teamId, leagueId;
+		int teamId, leagueId, leaderId;
 		String name, logoPath;
 		User user = null; 
 		
@@ -102,7 +102,8 @@ public class User {
 					leagueId = rs.getInt("league_id");
 					name = rs.getString("team_name");
 					logoPath = rs.getString("logo_path");
-					team = new Team(teamId, leagueId, name, logoPath);
+					leaderId = rs.getInt("leader_id");
+					team = new Team(teamId, leagueId, name, logoPath, leaderId);
 				}
 			}
 			user = new User(rs.getInt("iduser"), rs.getString("name"), rs.getString("surname"),
@@ -378,7 +379,7 @@ public class User {
 	}
 
 	public boolean isTeamLeader(){
-		return this.team != null && this.team.getId() == this.id;
+		return this.team != null && this.team.getLeaderId() == this.id;
 	}
 
 	public void setReferee(boolean canReferee){

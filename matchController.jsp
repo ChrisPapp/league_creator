@@ -25,51 +25,51 @@
             try {
                 match.getHomeStats().goalsScored = Integer.parseInt(homeGoals);
             } catch (Exception e) {
-                // Ignored, referee should be careful.
+                throw e;
             }
         }
         if (homeYellows != null) {
             try {
                 match.getHomeStats().yellowCards = Integer.parseInt(homeYellows);
             } catch (Exception e) {
-                // Ignored, referee should be careful.
+                throw e;
             }
         }
         if (homeReds != null) {
             try {
                 match.getHomeStats().redCards = Integer.parseInt(homeReds);
             } catch (Exception e) {
-                // Ignored, referee should be careful.
+                throw e;
             }
         }
         if (awayGoals != null) {
             try {
                 match.getAwayStats().goalsScored = Integer.parseInt(awayGoals);
             } catch (Exception e) {
-                // Ignored, referee should be careful.
+                throw e;
             }
         }
         if (awayYellows != null) {
             try {
                 match.getAwayStats().yellowCards = Integer.parseInt(awayYellows);
             } catch (Exception e) {
-                // Ignored, referee should be careful.
+                throw e;
             }
         }
         if (awayReds != null) {
             try {
                 match.getAwayStats().redCards = Integer.parseInt(awayReds);
             } catch (Exception e) {
-                // Ignored, referee should be careful.
+                throw e;
             }
         }
         if (matchDate != null) {  
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy HH:mm");
             try {
                 LocalDateTime dateTime = LocalDateTime.parse(matchDate, formatter);
                 match.setMatchDate(dateTime);
             } catch (DateTimeParseException e) { 
-                // Who has time for error handling
+                throw e;
             }
         }
         match.update(currentUser.getId());

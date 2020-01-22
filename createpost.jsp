@@ -33,6 +33,7 @@
 		
 		<%@ include file="navbar.jsp" %>
 
+		<% request.setCharacterEncoding("UTF-8"); %>
 		<% if (currentUser != null && currentUser.canPost()) { %>
 
 		<div class="container theme-showcase" role="main">
