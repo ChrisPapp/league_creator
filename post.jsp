@@ -31,12 +31,19 @@
             }
           }
           if (postId == null || currentPost == null) { // If everything fails, go to home page.
+              response.sendRedirect("home.jsp");
+              return;
+          }
+          boolean canRemove = currentUser !=null && (currentUser.getId() == currentPost.getPoster().getId() || currentUser.isAdmin());
         %>
-            <jsp:forward page="home.jsp"/> 
-        <% } %>
         <%@ include file="navbar.jsp" %>
         <div class="<%=bgClasses%>"></div>
-        <div class="<%=contentClasses%>"> 
+        <div class="<%=contentClasses%>">
+          <% if (canRemove) { %>
+            <div style="display: flex; justify-content: center; padding-bottom: 50px;">
+              <button class="defButton" onClick="location.href = 'deletePost.jsp?post=<%=currentPost.getId()%>';">Delete Post</button>
+            </div>
+          <% } %>
           <article>
               <h1 id="postTitle"><%= currentPost.getTitle() %></h1>
               <div id="postInfo">

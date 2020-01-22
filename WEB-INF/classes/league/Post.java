@@ -101,7 +101,35 @@ public class Post {
 
     }//end of register
 
+    public static boolean removeById(int postId) throws Exception{
+        Connection con = null;
+        ResultSet rs = null;
+        String deletePostSQL = "DELETE FROM post WHERE idpost = ?";
+        boolean ret = false;
 
+            try {
+
+                con = DatabaseAccess.getConnection();
+
+                PreparedStatement stmt = con.prepareStatement(deletePostSQL);
+
+                stmt.setInt(1, postId);
+
+                stmt.executeUpdate();
+                stmt.close();
+                ret = true;
+
+
+            } catch (SQLException e) {
+                ret = false;
+
+            } finally {
+
+                if(con != null) // if connection is still open, then close.
+                con.close();
+                return ret;
+            }
+    }
 
     public Integer getId() {
         return id;

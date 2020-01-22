@@ -36,7 +36,7 @@
       <%}%>
       <% if (currentUser != null && currentUser.isAdmin()) { %>
         <div style="display: flex; justify-content: center; padding-bottom: 50px;">
-          <button class="defButton toggleBtn" id="togglePost" onClick="location.href = 'createGroup.jsp';">Create Group</button>
+          <button class="defButton" onClick="location.href = 'createGroup.jsp';">Create Group</button>
         </div>
       <% } %>
       <div class="group-container">

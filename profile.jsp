@@ -12,6 +12,10 @@
   	</head>
 	<%  User user = null;
 		String userParam = request.getParameter("user");
+		if (userParam == null && currentUser == null) {
+			response.sendRedirect("login.jsp");
+			return;
+	    }
 		String title;
 		String imgSrc;
 		final String altImg = "images/member1.png";
@@ -83,7 +87,7 @@
 						<% if (isMyProfile) { %>
 							<button class="defButton" onclick="location.href = 'createteam.jsp';">Create Team</button>
 						<%} else if (currentUser != null && currentUser.isTeamLeader()){ %>
-							<button class="defButton" onclick="location.href = 'updateUserTeam.jsp?user=<%=user.getId()%>&team=<%=currentUser.getTeam().getId()%>';">Add to your team</button>
+							<button class="defButton" onclick="location.href = 'updateUserTeam.jsp?user=<%=user.getId()%>&team=<%=currentUser.getTeam().getId()%>';">Add to <%=currentUser.getTeam().getName()%></button>
 						<%} %>
 					<%} else {%>
 						<a href="team.jsp?team=<%=user.getTeam().getId()%>"><img src="<%= user.getTeam().getLogo()%>" alt="images/team.jpg"></a>
